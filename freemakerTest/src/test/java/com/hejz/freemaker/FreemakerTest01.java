@@ -12,7 +12,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +34,13 @@ public class FreemakerTest01 {
         // 4.构造数据模型
         Map map=new HashMap();
         map.put("username", "中国人");
+        map.put("flag",0);
+        List list=new ArrayList();
+        list.add("星期一");
+        list.add("星期二");
+        list.add("星期三");
+        list.add("星期四");
+        map.put("list",list);
         // 5.文件输出:FileWriter文件输出，PrintWriter输出到哪里
 //        myTemplate.process(map, new FileWriter("D:/1.txt"));
         //new PrintWriter(System.out)——输出到控制台上
