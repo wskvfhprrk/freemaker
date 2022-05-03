@@ -15,7 +15,7 @@ public class ResultSetMetaDataTest {
     public void inti() throws Exception {
         //1、获取数据库连接
         //流程驱动
-        String driver="com.mysql.jdbc.Driver";
+        String driver="com.mysql.cj.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306";
         String username="root";
         String password="123456";
@@ -38,9 +38,9 @@ public class ResultSetMetaDataTest {
         //查询参数个数
         int count = metaData.getColumnCount();
         for (int i = 0; i < count; i++) {
-            System.out.println(metaData.getColumnName(i+1)+"-----"+metaData.getColumnTypeName(i+1)+"-----"+metaData.getColumnClassName(i+1)+metaData);
-
+            System.out.println(metaData.getColumnName(i+1)+"-----"+metaData.getColumnTypeName(i+1)+"-----"+metaData.getColumnDisplaySize(i+1));
         }
 
     }
+
 }
