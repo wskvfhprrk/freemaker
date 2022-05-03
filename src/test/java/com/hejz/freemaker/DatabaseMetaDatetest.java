@@ -15,8 +15,8 @@ public class DatabaseMetaDatetest {
     public void inti() throws Exception {
         //1、获取数据库连接
         //流程驱动
-        String driver="com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306";
+        String driver="com.mysql.cj.jdbc.Driver";
+        String url = "jdbc:mysql://localhost:3306/demo";
         String username="root";
         String password="123456";
         Properties properties=new Properties();
@@ -37,7 +37,7 @@ public class DatabaseMetaDatetest {
         //3、获取数据库基本信息
         //获取数据库名称
         System.out.println("获取数据库的产品名称——"+metaData.getDatabaseProductName());
-        System.out.println("获取数据库的版本号——"+metaData.getDatabaseProductName());
+        System.out.println("获取数据库的版本号——"+metaData.getDriverVersion());
         System.out.println("获取数据库的用户名——"+metaData.getUserName());
         System.out.println("获取数据库连接的URL——"+metaData.getURL());
         System.out.println("获取数据库的驱动名称——"+metaData.getDriverName());
@@ -83,6 +83,7 @@ public class DatabaseMetaDatetest {
         ResultSet tables = metaData.getTables("demo", null, null, new String[]{"TABLE"});
         while (tables.next()){
             System.out.println(tables.getString("TABLE_NAME"));
+            System.out.println(tables.getString("REMARKS"));
         }
         tables.close();
         connection.close();
@@ -124,6 +125,29 @@ public class DatabaseMetaDatetest {
             System.out.println(columns.getString("IS_AUTOINCREMENT"));
         }
         columns.close();
+        connection.close();
+    }
+
+    /**
+     * 表外键
+     * @throws SQLException
+     */
+    @Test
+    public void test06() throws SQLException {
+        DatabaseMetaData metaData = connection.getMetaData();
+        ResultSet resultSet = metaData.getCatalogs();
+        // TODO: 2022/5/3 测试外键
+        ResultSet rs = metaData.getImportedKeys("demo", null, "tb_user");
+        while (rs.next()){
+            System.out.println("导入的主键表名—"+rs.getString("FKCOLUMN_NAME"));
+            System.out.println("导入的主键表名—"+rs.getString("PKTABLE_NAME"));
+            System.out.println("导入主键列名称-"+rs.getString("PKCOLUMN_NAME"));
+//            ResultSetMetaData rsMetaData = rs.getMetaData();
+//            int columnCount = rsMetaData.getColumnCount();
+//            System.out.println(columnCount);
+
+        }
+        resultSet.close();
         connection.close();
     }
 }
