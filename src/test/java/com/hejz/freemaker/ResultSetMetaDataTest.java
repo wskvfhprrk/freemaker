@@ -39,6 +39,7 @@ public class ResultSetMetaDataTest {
         int count = metaData.getColumnCount();
         for (int i = 0; i < count; i++) {
             System.out.println(metaData.getColumnName(i+1)+"-----"+metaData.getColumnTypeName(i+1)+"-----"+metaData.getColumnClassName(i+1)+metaData);
+
         }
 
     }
