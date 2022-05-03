@@ -91,7 +91,7 @@ public class DataBaseUtils {
                 importedKey.setPkColumnName(importedKeys.getString("PKCOLUMN_NAME"));
                 listPk.add(importedKey);
             }
-            //处理表中的所有字段
+            //处理表中的所有字段——与视频不同，视频从元数据拿东西，此处从元数据拿备注信息，其它从结果集中取得
             //查询参数个数
             //元数据不精确，但能查出注释放进map
             Map columnMap=new HashMap();//把备注信息放进map字段
@@ -140,8 +140,9 @@ public class DataBaseUtils {
                 column.setColumnDisplaySize(resultSetMetaData.getColumnDisplaySize(i));
                 cols.add(column);
             }
-
+            //先把列加入表中
             tab.setColumns(cols);
+            //把外键信息加入表中
             tab.setImportedKeys(listPk);
             list.add(tab);
             //关闭连接，释放资源
@@ -169,7 +170,7 @@ public class DataBaseUtils {
 
     // 测试 获取数据库中的所有表和字段并构造实体类 的方法是否可用
     public static void main(String[] args) throws Exception {
-        Database db = new Database("MYSQL", "demo");
+        Database db = new Database("MYSQL", "hbh");
         db.setUserName("root");
         db.setPassword("123456");
         List<Table> dbInfo = DataBaseUtils.getDbInfo(db);
