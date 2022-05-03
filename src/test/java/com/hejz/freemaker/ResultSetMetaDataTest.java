@@ -37,8 +37,8 @@ public class ResultSetMetaDataTest {
         ResultSetMetaData metaData = resultSet.getMetaData();
         //查询参数个数
         int count = metaData.getColumnCount();
-        for (int i = 0; i < count; i++) {
-            System.out.println(metaData.isNullable(i+1)+"----"+metaData.getColumnName(i+1)+"-----"+metaData.getColumnTypeName(i+1)+"-----"+metaData.getColumnDisplaySize(i+1));
+        for (int i = 1; i < count+1; i++) {
+            System.out.println(metaData.isNullable(i)+"----"+metaData.getColumnName(i)+"-----"+metaData.getColumnTypeName(i)+"-----"+metaData.getColumnDisplaySize(i));
         }
 
     }

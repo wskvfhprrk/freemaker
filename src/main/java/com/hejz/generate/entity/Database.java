@@ -15,6 +15,8 @@ public class Database {
     private String password;
     private String driver;
     private String url;
+    private String db;
+
 
     public Database(){}
     public Database(String dbType){
@@ -22,6 +24,7 @@ public class Database {
     }
     public Database(String dbType,String db){
         this(dbType,"127.0.0.1","3306",db);
+        this.db=db;
     }
     /**
      *
