@@ -83,13 +83,14 @@ public class GeneratorFacade {
             dataModel.put("className",table.getClassName());
             return dataModel;
         }
-    //可作为生成代码的入口即可
+    //
+    // **可作为生成代码的入口即可
     public static void main(String[] args) throws Exception {
-        Settings settings = new Settings("", "com.hejz", "模版生成系统", "hejz");
+        Settings settings = new Settings("object", "com.hejz", "模版生成系统", "何建哲");
         Database db=new Database("MYSQL","demo");
         db.setPassword("123456");
         db.setUserName("root");
-        String templatePaeh="C:\\Users\\Administrator\\IdeaProjects\\freemaker\\模版";
+        String templatePaeh="C:\\Users\\Administrator\\IdeaProjects\\freemaker\\模版\\spring boot模版";
         String outPath="C:\\Users\\Administrator\\IdeaProjects\\freemaker\\生成代码";
         GeneratorFacade generatorFacade = new GeneratorFacade(templatePaeh, outPath, settings, db);
         generatorFacade.generatorByDataBase();

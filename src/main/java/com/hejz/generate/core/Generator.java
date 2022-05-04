@@ -4,7 +4,6 @@ import com.hejz.generate.utils.FileUtils;
 import freemarker.cache.FileTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import lombok.Data;
 
 import java.io.*;
@@ -91,7 +90,7 @@ public class Generator {
     }
 
     public static void main(String[] args) throws Exception {
-        String templatePath="C:\\Users\\Administrator\\Desktop\\测试\\模版";
+        String templatePath="C:\\Users\\Administrator\\IdeaProjects\\freemaker\\模版\\spring boot模版";
         String outPath="C:\\Users\\Administrator\\Desktop\\测试\\生成文件";
         Generator generator = new Generator(templatePath, outPath);
         Map<String,Object> dataModel=new HashMap();
