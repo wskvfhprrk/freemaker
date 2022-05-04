@@ -1,8 +1,6 @@
 package com.hejz.generate.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,11 +13,13 @@ public class PropertiesUtils {
     //静态块，预加载，将自定义的配置文件properties的内容全部加载到customMap中
     static {
         File dir=new File("properties");
+        InputStreamReader isr = null;
         try {
             List<File> files = FileUtils.searchAllFile(new File(dir.getAbsolutePath()));
             for(File file:files){
                 if(file.getName().endsWith(".properties")){
                     Properties prop=new Properties();
+                    //操作
                     prop.load(new FileInputStream(file));
                     customMap.putAll((Map)prop);
                 }
