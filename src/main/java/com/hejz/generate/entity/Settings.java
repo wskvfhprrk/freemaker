@@ -7,6 +7,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * 设置
  */
@@ -61,16 +62,21 @@ public class Settings {
         pathAll = pPackage.replaceAll(".", "/");
     }
 
-    /*public Map<String, Object> getSettingMap() {
-        Map<String, Object> map = new HashMap<String, Object>();
-        Field[] declaredFields = Settings.class.getDeclaredFields();
-        for (Field field : declaredFields) {
+    /**
+     * 反射机制把settings属性和值放进map中
+     * @return
+     */
+    public  Map<String,Object> getSettingMap(){
+        HashMap<String, Object> map = new HashMap<>();
+        Field[] fields = Settings.class.getDeclaredFields();
+        for (Field field : fields) {
             field.setAccessible(true);
             try {
-                map.put(field.getName(), field.get(this));
+                map.put(field.getName(),field.get(this));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }
-    }*/
+        return map;
+    }
 }

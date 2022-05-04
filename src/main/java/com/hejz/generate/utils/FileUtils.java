@@ -45,6 +45,7 @@ public class FileUtils {
             throw new IllegalArgumentException("文件夹不许为空");
         }
         File result = new File(dir, file);
+        //如果不存在则创建
         if (result.getParentFile() != null) {
             result.getParentFile().mkdirs();
         }
