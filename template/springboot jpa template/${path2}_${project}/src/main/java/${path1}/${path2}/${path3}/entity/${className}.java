@@ -29,12 +29,11 @@ public class ${className} implements Serializable{
     </#if>
     </#if>
     <#if column.isAutoincrement==true>
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     </#if>
     @Column(
             name = "${column.columnName}",
             nullable = <#if column.isNullable==0>false<#else>true</#if>,
-            columnDefinition=<#if column.columnJavaType=='String'>"varchar(${column.columnDisplaySize})"<#elseif column.columnJavaType=='Integer'>"int"<#elseif column.columnJavaType=='Long'>"bigint"<#elseif column.columnJavaType=='java.util.Date'>"date"</#if>+"COMMENT '${column.columnComment}'"
+            columnDefinition=<#if column.columnJavaType=='String'>"varchar(${column.columnDisplaySize})"<#elseif column.columnJavaType=='Integer'>"int"<#elseif column.columnJavaType=='Long'>"bigint"<#else>"date"</#if>+"COMMENT '${column.columnComment}'"
     )
     private ${column.columnJavaType} ${column.javaBeanName};
     </#list>
