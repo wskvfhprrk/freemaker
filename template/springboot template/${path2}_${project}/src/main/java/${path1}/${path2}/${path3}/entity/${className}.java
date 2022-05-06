@@ -10,20 +10,32 @@ import javax.persistence.*;
  * data: ${.now?date}
  */
 @Data
-@Entity
-@Table(name = "${table.name}")
+@Entity(name = "${table.name}")
 public class ${className} implements Serializable{
     <#list table.columns as column>
 
-    /**
-     * ${column.columnComment}
-     */
     <#if column.isKey==true>
     @Id
+    <#if column.isAutoincrement==true>
+    @SequenceGenerator(
+            name = "${table.name}_sequence",
+            sequenceName = "${table.name}_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "${table.name}_sequence"
+    )
+    </#if>
     </#if>
     <#if column.isAutoincrement==true>
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     </#if>
+    @Column(
+            name = "${column.columnName}",
+            nullable = <#if column.isNullable==0>false<#else>true</#if>,
+            columnDefinition=<#if column.columnJavaType=='String'>"varchar(${column.columnDisplaySize})"<#elseif column.columnJavaType=='Integer'>"int"<#elseif column.columnJavaType=='Long'>"bigint"<#elseif column.columnJavaType=='java.util.Date'>"date"</#if>+"COMMENT '${column.columnComment}'"
+    )
     private ${column.columnJavaType} ${column.javaBeanName};
     </#list>
 }

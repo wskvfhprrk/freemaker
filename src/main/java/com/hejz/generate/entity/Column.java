@@ -44,4 +44,8 @@ public class Column {
      * 最大数据长度——结果集中的指定列的正常最大宽度（以字符为单位）。 
      */
     private int columnDisplaySize;
+    /**
+     * 是否唯一索引导
+     */
+   // private Boolean isUnique;
 }

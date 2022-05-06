@@ -150,4 +150,16 @@ public class DatabaseMetaDatetest {
         resultSet.close();
         connection.close();
     }
+
+    /**
+     * 测试查询唯一索引字段
+     */
+    @Test
+    public  void test07() throws SQLException {
+        DatabaseMetaData metaData = connection.getMetaData();
+        ResultSet info = metaData.getIndexInfo("demo", null, "tb_user",true,false);
+        while (info.next()){
+            System.out.println(info.getString("NON_UNIQUE"));
+        }
+    }
 }

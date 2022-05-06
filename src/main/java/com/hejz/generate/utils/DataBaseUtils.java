@@ -76,6 +76,7 @@ public class DataBaseUtils {
                 String keyName = primaryKeys.getString("COLUMN_NAME");
                 keys += keyName + ",";
             }
+            // TODO: 2022/5/6  查询UNIQUE唯一索引
             Table tab = new Table();
             tab.setName(table_name);
             tab.setClassName(className);
