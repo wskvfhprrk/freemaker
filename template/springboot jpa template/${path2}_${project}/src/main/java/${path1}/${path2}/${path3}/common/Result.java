@@ -1,15 +1,17 @@
-package ${pPackage}.common;
+package com.hejz.studay.common;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
+import java.util.Map;
+
 /**
  * 定义统一返回值接口
- * author: ${author}
- * data: ${.now?date}
+ * author: hejz
+ * data: 2022-5-7
  */
-public class Result {
+public class Result<T> {
 
     // 定义jackson对象
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -21,7 +23,7 @@ public class Result {
     private String msg;
 
     // 响应中的数据
-    private Object data;
+    private T data;
 
     public static Result build(Integer status, String msg, Object data) {
         return new Result(status, msg, data);
@@ -29,6 +31,10 @@ public class Result {
 
     public static Result ok(Object data) {
         return new Result(data);
+    }
+    public static Result error(Integer status, String msg) {
+
+        return build(status,msg,null);
     }
 
     public static Result ok() {
@@ -42,13 +48,13 @@ public class Result {
         return new Result(status, msg, null);
     }
 
-    public Result(Integer status, String msg, Object data) {
+    public Result(Integer status, String msg, T data) {
         this.status = status;
         this.msg = msg;
         this.data = data;
     }
 
-    public Result(Object data) {
+    public Result(T data) {
         this.status = 200;
         this.msg = "OK";
         this.data = data;
@@ -75,7 +81,7 @@ public class Result {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
     /**

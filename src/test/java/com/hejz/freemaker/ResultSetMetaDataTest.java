@@ -29,7 +29,7 @@ public class ResultSetMetaDataTest {
     }
     @Test
     public void test() throws SQLException {
-        String sql="select * from demo.dictionary";
+        String sql="select * from demo.${className?uncap_first}";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         //查询
         ResultSet resultSet = preparedStatement.executeQuery();

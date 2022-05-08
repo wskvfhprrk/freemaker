@@ -29,7 +29,7 @@ public class ParameterMetaDataTest {
     }
     @Test
     public void test() throws SQLException {
-        String sql="select * from demo.dictionary";
+        String sql="select * from demo.${className?uncap_first}";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         //获取参数原数据
         ResultSetMetaData metaData = preparedStatement.getMetaData();

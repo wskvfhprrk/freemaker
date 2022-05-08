@@ -102,7 +102,7 @@ public class DatabaseMetaDatetest {
     @Test
     public void test05() throws SQLException {
         DatabaseMetaData metaData = connection.getMetaData();
-        ResultSet columns = metaData.getColumns("demo", null, "dictionary", null);
+        ResultSet columns = metaData.getColumns("demo", null, "${className?uncap_first}", null);
         while (columns.next()){
             //TABLE_NAME String =>表名
             System.out.println(columns.getString("TABLE_NAME"));
