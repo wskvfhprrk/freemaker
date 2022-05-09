@@ -12,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
 public class ${className}CreateDto {
     <#list table.columns as column>
     <#if column.isKey==false>
-    @ApiModelProperty(value = "${column.columnComment}"<#if column.isNullable==0>,required = true</#if>)
+    @ApiModelProperty(value = "${column.columnComment}"<#if column.isNullable==0>,required = true</#if><#if column.columnJavaType=='Integer'>,example = "22"</#if>)
     <#if column.isNullable==0>
     @NotEmpty
     </#if>

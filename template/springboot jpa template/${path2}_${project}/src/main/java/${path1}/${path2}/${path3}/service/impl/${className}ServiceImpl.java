@@ -1,3 +1,9 @@
+<#list table.columns as column>
+<#if column.isKey==true>
+<#assign type>${column.columnJavaType}</#assign>
+<#assign id>${column.javaBeanName}</#assign>
+</#if>
+</#list>
 package ${pPackage}.service.impl;
 
 import ${pPackage}.entity.${className};
@@ -26,13 +32,13 @@ public class ${className}ServiceImpl implements ${className}Service {
     }
 
     @Override
-    public void delete(Long id) {
-        ${className?uncap_first}Repository.deleteById(id);
+    public void delete(${type} ${id}) {
+        ${className?uncap_first}Repository.deleteById( ${id});
     }
 
     @Override
-    public ${className} findById(Long id) {
-       return ${className?uncap_first}Repository.findById(id).orElse(null);
+    public ${className} findById(${type} ${id}) {
+       return ${className?uncap_first}Repository.findById( ${id}).orElse(null);
     }
 
     @Override
@@ -43,6 +49,14 @@ public class ${className}ServiceImpl implements ${className}Service {
             <#if column.columnJavaType=='String'>
             if(StringUtils.isNotBlank(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
                 predicates.add(cb.like(root.get("${column.javaBeanName?cap_first}"), "%"+${className?uncap_first}.get${column.javaBeanName?cap_first}()+"%"));
+            }
+            <#elseif (column.columnJavaType=='Long'||column.columnJavaType=='Integer')>
+            if(${className?uncap_first}.get${column.javaBeanName?cap_first}()!=null && ${className?uncap_first}.get${column.javaBeanName?cap_first}()!=0) {
+            predicates.add(cb.equal(root.get("${column.javaBeanName?cap_first}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
+            }
+            <#elseif (column.columnJavaType=='java.util.Date')>
+            if(${className?uncap_first}.get${column.javaBeanName?cap_first}()!=null) {
+            predicates.add(cb.equal(root.get("${column.javaBeanName?cap_first}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
             }
             <#else>
             if(StringUtils.isNotEmpty(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
@@ -62,17 +76,25 @@ public class ${className}ServiceImpl implements ${className}Service {
     public List<${className}> findAll(${className} ${className?uncap_first}) {
         Specification<${className}> spec= (root, query, cb)-> {
             List<Predicate> predicates = new ArrayList<>();
-        <#list table.columns as column>
-        <#if column.columnJavaType=='String'>
-        if(StringUtils.isNotBlank(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
-        predicates.add(cb.like(root.get("${column.javaBeanName?cap_first}"), "%"+${className?uncap_first}.get${column.javaBeanName?cap_first}()+"%"));
-        }
-        <#else>
-        if(StringUtils.isNotEmpty(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
-        predicates.add(cb.equal(root.get("${column.javaBeanName?cap_first}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
-        }
-        </#if>
-        </#list>
+            <#list table.columns as column>
+            <#if column.columnJavaType=='String'>
+            if(StringUtils.isNotBlank(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
+            predicates.add(cb.like(root.get("${column.javaBeanName?cap_first}"), "%"+${className?uncap_first}.get${column.javaBeanName?cap_first}()+"%"));
+            }
+            <#elseif (column.columnJavaType=='Long'||column.columnJavaType=='Integer')>
+            if(${className?uncap_first}.get${column.javaBeanName?cap_first}()!=null && ${className?uncap_first}.get${column.javaBeanName?cap_first}()!=0) {
+            predicates.add(cb.equal(root.get("${column.javaBeanName?cap_first}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
+            }
+            <#elseif (column.columnJavaType=='java.util.Date')>
+            if(${className?uncap_first}.get${column.javaBeanName?cap_first}()!=null) {
+            predicates.add(cb.equal(root.get("${column.javaBeanName?cap_first}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
+            }
+            <#else>
+            if(StringUtils.isNotEmpty(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
+            predicates.add(cb.equal(root.get("${column.javaBeanName?cap_first}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
+            }
+            </#if>
+            </#list>
             Predicate[] andPredicate = new Predicate[predicates.size()];
             return cb.and(predicates.toArray(andPredicate));
         };

@@ -1,15 +1,17 @@
+<#list table.columns as column>
+<#if column.isKey==true>
+<#assign type>${column.columnJavaType}</#assign>
+<#assign id>${column.javaBeanName}</#assign>
+</#if>
+</#list>
 package ${pPackage}.controller;
 
 import ${pPackage}.common.PageResult;
-import ${pPackage}.dto.${className}AllDto;
-import ${pPackage}.dto.${className}CreateDto;
-import ${pPackage}.dto.${className}FindByPageDto;
-import ${pPackage}.dto.${className}UpdateDto;
+import ${pPackage}.dto.*;
 import ${pPackage}.entity.${className};
 import ${pPackage}.service.${className}Service;
 import ${pPackage}.common.Result;
-import ${pPackage}.vo.${className}AllVo;
-import ${pPackage}.vo.${className}FindByPageVo;
+import ${pPackage}.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
@@ -34,7 +36,7 @@ public class ${className}Controller {
     @Autowired
     private ${className}Service ${className?uncap_first}Service;
 
-    @PostMapping("create")
+    @PostMapping()
     @ApiOperation("添加${table.tableComment}")
     public Result create${className}(@Valid @RequestBody ${className}CreateDto dto){
         ${className} ${className?uncap_first}=new ${className}();
@@ -53,13 +55,13 @@ public class ${className}Controller {
     }
     @DeleteMapping
     @ApiOperation("删除${table.tableComment}")
-    public Result Delete${className}(Long id){
-        ${className?uncap_first}Service.delete(id);
+    public Result Delete${className}(${type} ${id}){
+        ${className?uncap_first}Service.delete(${id});
         return Result.ok();
     }
 
     @GetMapping("fingPage")
-    @ApiOperation("分布条件查询${table.tableComment}")
+    @ApiOperation("条件查询${table.tableComment}")
     public Result<PageResult<${className}FindByPageVo>> findBypage( @Valid ${className}FindByPageDto dto){
         ${className} ${className?uncap_first}=new ${className}();
         BeanUtils.copyProperties(dto,${className?uncap_first});
@@ -80,7 +82,7 @@ public class ${className}Controller {
 
     @GetMapping
     @ApiOperation("分布条件查询${table.tableComment}所有的数据")
-    public Result<List<${className}AllVo>> findAll(@Valid ${className}AllDto dto){
+    public Result<List<${className}AllVo>> findAll(@Valid ${className}FindAllDto dto){
         ${className} ${className?uncap_first}=new ${className}();
         BeanUtils.copyProperties(dto,${className?uncap_first});
         List<${className}> dictionaries = ${className?uncap_first}Service.findAll(${className?uncap_first});
