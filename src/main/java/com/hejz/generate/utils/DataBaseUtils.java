@@ -90,8 +90,8 @@ public class DataBaseUtils {
                 importedKey.setFkColumnName(importedKeys.getString("FKCOLUMN_NAME"));
                 String pktableName = importedKeys.getString("PKTABLE_NAME");
                 importedKey.setPkTableName(pktableName);
-                // TODO: 2022/5/24 处理表前缀
-                importedKey.setJavaBeanName(pktableName);
+                //去掉前缀名
+                importedKey.setJavaBeanName(removePrefix(pktableName));
                 importedKey.setPkColumnName(importedKeys.getString("PKCOLUMN_NAME"));
                 listPk.add(importedKey);
             }
