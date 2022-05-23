@@ -1,4 +1,4 @@
-package com.hejz.studay.common;
+package ${pPackage}.common;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

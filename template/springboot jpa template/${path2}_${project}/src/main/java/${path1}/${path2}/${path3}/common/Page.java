@@ -1,4 +1,4 @@
-package com.hejz.studay.common;
+package ${pPackage}.common;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

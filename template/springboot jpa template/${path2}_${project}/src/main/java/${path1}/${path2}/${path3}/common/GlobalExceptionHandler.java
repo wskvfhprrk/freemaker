@@ -1,4 +1,4 @@
-package com.hejz.studay.common;
+package ${pPackage}.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-@ControllerAdvice(basePackages = "com.hejz.studay.controller")
+@ControllerAdvice(basePackages = "${pPackage}.controller")
 @ResponseBody
 @Slf4j
 public class GlobalExceptionHandler {

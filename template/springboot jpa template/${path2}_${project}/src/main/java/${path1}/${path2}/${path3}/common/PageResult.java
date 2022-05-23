@@ -1,4 +1,4 @@
-package com.hejz.studay.common;
+package ${pPackage}.common;
 
 import lombok.Data;
 

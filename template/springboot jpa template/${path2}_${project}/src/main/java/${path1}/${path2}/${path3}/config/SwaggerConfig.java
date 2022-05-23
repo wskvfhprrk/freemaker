@@ -29,7 +29,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.hejz.studay.controller"))
+                .apis(RequestHandlerSelectors.basePackage("${pPackage}.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
