@@ -17,15 +17,7 @@ public class ${className} implements Serializable{
     <#if column.isKey==true>
     @Id
     <#if column.isAutoincrement==true>
-    @SequenceGenerator(
-            name = "${table.name}_sequence",
-            sequenceName = "${table.name}_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "${table.name}_sequence"
-    )
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     </#if>
     </#if>
     <#if column.isAutoincrement==true>
