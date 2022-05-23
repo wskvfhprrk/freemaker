@@ -88,10 +88,14 @@ public class DataBaseUtils {
             while (importedKeys.next()) {
                 ImportedKey importedKey = new ImportedKey();
                 importedKey.setFkColumnName(importedKeys.getString("FKCOLUMN_NAME"));
-                importedKey.setPkTableName(importedKeys.getString("PKTABLE_NAME"));
+                String pktableName = importedKeys.getString("PKTABLE_NAME");
+                importedKey.setPkTableName(pktableName);
+                // TODO: 2022/5/24 处理表前缀
+                importedKey.setJavaBeanName(pktableName);
                 importedKey.setPkColumnName(importedKeys.getString("PKCOLUMN_NAME"));
                 listPk.add(importedKey);
             }
+            tab.setImportedKeys(listPk);
             //处理表中的所有字段——与视频不同，视频从元数据拿东西，此处从元数据拿备注信息，其它从结果集中取得
             //查询参数个数
             //元数据不精确，但能查出注释放进map
@@ -171,7 +175,7 @@ public class DataBaseUtils {
 
     // 测试 获取数据库中的所有表和字段并构造实体类 的方法是否可用
     public static void main(String[] args) throws Exception {
-        Database db = new Database("MYSQL", "hbh");
+        Database db = new Database("MYSQL", "mall");
         db.setUserName("root");
         db.setPassword("123456");
         List<Table> dbInfo = DataBaseUtils.getDbInfo(db);

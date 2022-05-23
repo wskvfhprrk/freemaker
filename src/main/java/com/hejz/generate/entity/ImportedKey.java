@@ -12,7 +12,11 @@ public class ImportedKey {
      */
     private String fkColumnName;
     /**
-     * 导入的主键表名称
+     * 导入的主键表java名称
+     */
+    private String javaBeanName;
+    /**
+     * 导入的外键表
      */
     private String pkTableName;
     /**

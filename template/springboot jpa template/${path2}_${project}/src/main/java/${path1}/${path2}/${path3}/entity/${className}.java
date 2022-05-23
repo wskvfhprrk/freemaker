@@ -29,4 +29,14 @@ public class ${className} implements Serializable{
     )
     private ${column.columnJavaType} ${column.javaBeanName};
     </#list>
+    <#if table.importedKeys??>
+    <#list table.importedKeys as pk>
+    /**
+     * 外键表——${pk.pkTableName}中的字段${pk.pkColumnName}
+     */
+    @ManyToOne
+    @JoinColumn(name = "${pk.fkColumnName}")
+    private ${pk.javaBeanName?cap_first} ${pk.javaBeanName};
+    </#list>
+    </#if>
 }

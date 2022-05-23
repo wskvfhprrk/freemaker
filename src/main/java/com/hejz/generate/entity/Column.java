@@ -2,6 +2,8 @@ package com.hejz.generate.entity;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * 表中列参数类
  */
@@ -48,4 +50,5 @@ public class Column {
      * 是否唯一索引导
      */
    // private Boolean isUnique;
+
 }

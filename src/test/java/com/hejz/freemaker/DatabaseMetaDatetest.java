@@ -12,11 +12,11 @@ import java.util.Properties;
 public class DatabaseMetaDatetest {
     private  Connection connection;
     @Before
-    public void inti() throws Exception {
+    public void init() throws Exception {
         //1、获取数据库连接
         //流程驱动
         String driver="com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/demo";
+        String url = "jdbc:mysql://localhost:3306/mall";
         String username="root";
         String password="123456";
         Properties properties=new Properties();
@@ -102,7 +102,7 @@ public class DatabaseMetaDatetest {
     @Test
     public void test05() throws SQLException {
         DatabaseMetaData metaData = connection.getMetaData();
-        ResultSet columns = metaData.getColumns("demo", null, "${className?uncap_first}", null);
+        ResultSet columns = metaData.getColumns("mall", null, "city", null);
         while (columns.next()){
             //TABLE_NAME String =>表名
             System.out.println(columns.getString("TABLE_NAME"));
@@ -137,7 +137,7 @@ public class DatabaseMetaDatetest {
         DatabaseMetaData metaData = connection.getMetaData();
         ResultSet resultSet = metaData.getCatalogs();
         // TODO: 2022/5/3 测试外键
-        ResultSet rs = metaData.getImportedKeys("demo", null, "tb_user");
+        ResultSet rs = metaData.getImportedKeys("mall", null, "city");
         while (rs.next()){
             System.out.println("导入的主键表名—"+rs.getString("FKCOLUMN_NAME"));
             System.out.println("导入的主键表名—"+rs.getString("PKTABLE_NAME"));
