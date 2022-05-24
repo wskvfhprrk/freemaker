@@ -1,11 +1,10 @@
 package ${pPackage}.vo;
 
 import io.swagger.annotations.ApiModelProperty;
-import ${pPackage}.common.Page;
 import lombok.Data;
 
 @Data
-public class ${className}FindByPageVo extends Page {
+public class ${className}FindByPageVo{
     <#list table.columns as column>
     @ApiModelProperty(value = "${column.columnComment}")
     <#if column.columnJavaType=='java.util.Date'>

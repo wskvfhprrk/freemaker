@@ -48,19 +48,19 @@ public class ${className}ServiceImpl implements ${className}Service {
             <#list table.columns as column>
             <#if column.columnJavaType=='String'>
             if(StringUtils.isNotBlank(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
-                predicates.add(cb.like(root.get("${column.javaBeanName?cap_first}"), "%"+${className?uncap_first}.get${column.javaBeanName?cap_first}()+"%"));
+                predicates.add(cb.like(root.get("${column.javaBeanName}"), "%"+${className?uncap_first}.get${column.javaBeanName?cap_first}()+"%"));
             }
             <#elseif (column.columnJavaType=='Long'||column.columnJavaType=='Integer')>
             if(${className?uncap_first}.get${column.javaBeanName?cap_first}()!=null && ${className?uncap_first}.get${column.javaBeanName?cap_first}()!=0) {
-            predicates.add(cb.equal(root.get("${column.javaBeanName?cap_first}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
+            predicates.add(cb.equal(root.get("${column.javaBeanName}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
             }
             <#elseif (column.columnJavaType=='java.util.Date')>
             if(${className?uncap_first}.get${column.javaBeanName?cap_first}()!=null) {
-            predicates.add(cb.equal(root.get("${column.javaBeanName?cap_first}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
+            predicates.add(cb.equal(root.get("${column.javaBeanName}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
             }
             <#else>
             if(StringUtils.isNotEmpty(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
-                predicates.add(cb.equal(root.get("${column.javaBeanName?cap_first}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
+                predicates.add(cb.equal(root.get("${column.javaBeanName}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
             }
             </#if>
             </#list>
@@ -79,19 +79,19 @@ public class ${className}ServiceImpl implements ${className}Service {
             <#list table.columns as column>
             <#if column.columnJavaType=='String'>
             if(StringUtils.isNotBlank(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
-            predicates.add(cb.like(root.get("${column.javaBeanName?cap_first}"), "%"+${className?uncap_first}.get${column.javaBeanName?cap_first}()+"%"));
+            predicates.add(cb.like(root.get("${column.javaBeanName}"), "%"+${className?uncap_first}.get${column.javaBeanName?cap_first}()+"%"));
             }
             <#elseif (column.columnJavaType=='Long'||column.columnJavaType=='Integer')>
             if(${className?uncap_first}.get${column.javaBeanName?cap_first}()!=null && ${className?uncap_first}.get${column.javaBeanName?cap_first}()!=0) {
-            predicates.add(cb.equal(root.get("${column.javaBeanName?cap_first}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
+            predicates.add(cb.equal(root.get("${column.javaBeanName}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
             }
             <#elseif (column.columnJavaType=='java.util.Date')>
             if(${className?uncap_first}.get${column.javaBeanName?cap_first}()!=null) {
-            predicates.add(cb.equal(root.get("${column.javaBeanName?cap_first}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
+            predicates.add(cb.equal(root.get("${column.javaBeanName}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
             }
             <#else>
             if(StringUtils.isNotEmpty(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
-            predicates.add(cb.equal(root.get("${column.javaBeanName?cap_first}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
+            predicates.add(cb.equal(root.get("${column.javaBeanName}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
             }
             </#if>
             </#list>
