@@ -136,16 +136,11 @@ public class DatabaseMetaDatetest {
     public void test06() throws SQLException {
         DatabaseMetaData metaData = connection.getMetaData();
         ResultSet resultSet = metaData.getCatalogs();
-        // TODO: 2022/5/3 测试外键
-        ResultSet rs = metaData.getImportedKeys("mall", null, "city");
+        ResultSet rs = metaData.getImportedKeys("mall", null, "goods");
         while (rs.next()){
             System.out.println("导入的主键表名—"+rs.getString("FKCOLUMN_NAME"));
             System.out.println("导入的主键表名—"+rs.getString("PKTABLE_NAME"));
             System.out.println("导入主键列名称-"+rs.getString("PKCOLUMN_NAME"));
-//            ResultSetMetaData rsMetaData = rs.getMetaData();
-//            int columnCount = rsMetaData.getColumnCount();
-//            System.out.println(columnCount);
-
         }
         resultSet.close();
         connection.close();
