@@ -9,9 +9,9 @@ spring:
     hibernate:
       ddl-auto: update # 新增数据库链接必须的参数
     # 控制台显示SQL
-    show-sql: true
+#    show-sql: true
     properties:
-#      hibernate.format_sql: true
+      hibernate.format_sql: true
   #Springboot2.6以后将SpringMVC 默认路径匹配策略从AntPathMatcher 更改为PathPatternParser，导致出错
   mvc:
     pathmatch:

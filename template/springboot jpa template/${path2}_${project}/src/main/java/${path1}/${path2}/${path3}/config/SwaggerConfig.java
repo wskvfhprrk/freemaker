@@ -19,12 +19,12 @@ public class SwaggerConfig implements WebMvcConfigurer {
     public Docket createRestApi() {
         ApiInfo apiInfo =
                 new ApiInfoBuilder()
-                        .title("日志管理系统API")
-                        .description("日志管理系统采用SpringBoot开发，API文档集成Swagger")
+                        .title("物联网系统")
+                        .description("物联网系统采用SpringBoot+netty开发，API文档集成Swagger")
                         .version("1.0")
                         .contact(new Contact("hejz", "https://github.com/yutils", "75412985@qq.com"))
                         .license("我的首页")
-                        .licenseUrl("https://weibo.com/32005200")
+                        .licenseUrl("https://baidu.com")
                         .build();
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo)
