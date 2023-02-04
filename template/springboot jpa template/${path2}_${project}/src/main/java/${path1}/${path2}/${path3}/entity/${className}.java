@@ -11,6 +11,7 @@ import javax.persistence.*;
  */
 @Data
 @Entity(name = "${table.name}")
+@org.hibernate.annotations.Table(appliesTo = "${table.name}", comment = "${table.tableComment}")
 public class ${className} implements Serializable{
     <#list table.columns as column>
 

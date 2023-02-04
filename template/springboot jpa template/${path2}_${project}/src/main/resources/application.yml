@@ -11,7 +11,7 @@ spring:
     # 控制台显示SQL
     show-sql: true
     properties:
-      hibernate.format_sql: true
+#      hibernate.format_sql: true
   #Springboot2.6以后将SpringMVC 默认路径匹配策略从AntPathMatcher 更改为PathPatternParser，导致出错
   mvc:
     pathmatch:
