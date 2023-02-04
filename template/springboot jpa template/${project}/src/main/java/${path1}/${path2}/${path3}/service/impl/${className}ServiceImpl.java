@@ -46,7 +46,7 @@ public class ${className}ServiceImpl implements ${className}Service {
         Specification<${className}> sp= (root, query, cb)-> {
             List<Predicate> predicates = new ArrayList<>();
             <#list table.columns as column>
-<#if column.isKey==false>
+            <#if column.isKey==false>
             <#if column.columnJavaType=='String'>
             if(StringUtils.isNotBlank(dto.get${column.javaBeanName?cap_first}())) {
                 predicates.add(cb.like(root.get("${column.javaBeanName}"), "%"+dto.get${column.javaBeanName?cap_first}()+"%"));
@@ -68,7 +68,7 @@ public class ${className}ServiceImpl implements ${className}Service {
                 predicates.add(cb.equal(root.get("${column.javaBeanName}"), dto.get${column.javaBeanName?cap_first}()));
             }
             </#if>
-</#if>
+            </#if>
             </#list>
             Predicate[] andPredicate = new Predicate[predicates.size()];
             return cb.and(predicates.toArray(andPredicate));
