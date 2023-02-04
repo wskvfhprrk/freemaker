@@ -10,10 +10,16 @@ import javax.validation.constraints.NotEmpty;
  */
 @Data
 public class Page {
-    @ApiModelProperty(value = "第几页",required = true,example = "0")
+    @ApiModelProperty(value = "第几页",required = true,example = "1")
     @NotEmpty
-    private Integer pageNo;
+    private Integer page;
     @ApiModelProperty(value = "每页多少行",required = true,example = "5")
     @NotEmpty
-    private Integer pageSize;
+    private Integer limit;
+    @ApiModelProperty(value = "排序如：+id或-id——+为顺序，-为倒序排列",required = true,example = "+id")
+    @NotEmpty
+    private String sort;
+    public void setPage(Integer page) {
+        this.page = page-1;
+    }
 }

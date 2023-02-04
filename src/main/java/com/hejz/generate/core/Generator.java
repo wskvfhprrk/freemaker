@@ -90,8 +90,8 @@ public class Generator {
     }
 
     public static void main(String[] args) throws Exception {
-        String templatePath="C:\\Users\\Administrator\\IdeaProjects\\freemaker\\模版\\spring boot模版";
-        String outPath="C:\\Users\\Administrator\\Desktop\\测试\\生成文件";
+        String templatePath="D:\\javaTest\\freemaker\\template\\springboot jpa template";
+        String outPath="D:\\javaTest\\freemaker\\generator code";
         Generator generator = new Generator(templatePath, outPath);
         Map<String,Object> dataModel=new HashMap();
         dataModel.put("username","张三");

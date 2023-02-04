@@ -55,7 +55,7 @@ public class Result<T> {
     }
 
     public Result(T data) {
-        this.status = 200;
+        this.status = 20000;
         this.msg = "OK";
         this.data = data;
     }

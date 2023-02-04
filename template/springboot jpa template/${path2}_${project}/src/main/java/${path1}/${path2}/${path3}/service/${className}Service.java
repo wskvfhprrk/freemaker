@@ -6,6 +6,7 @@
 </#list>
 package ${pPackage}.service;
 
+import ${pPackage}.dto.${className}FindByPageDto;
 import ${pPackage}.entity.${className};
 import org.springframework.data.domain.Page;
 
@@ -18,6 +19,6 @@ public interface ${className}Service {
     ${className} Save(${className} ${className?uncap_first});
     void delete(${type} ${id});
     ${className} findById(${type} ${id});
-    Page<${className}> findPage(${className} ${className?uncap_first}, int pageNo,int pageSize);
+    Page<${className}> findPage(${className}FindByPageDto dto);
     List<${className}> findAll(${className} ${className?uncap_first});
 }

@@ -16,7 +16,7 @@ public class DatabaseMetaDatetest {
         //1、获取数据库连接
         //流程驱动
         String driver="com.mysql.cj.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/mall";
+        String url = "jdbc:mysql://localhost:3306/dtu";
         String username="root";
         String password="123456";
         Properties properties=new Properties();
@@ -80,8 +80,11 @@ public class DatabaseMetaDatetest {
     @Test
     public void test04() throws SQLException {
         DatabaseMetaData metaData = connection.getMetaData();
-        ResultSet tables = metaData.getTables("demo", null, null, new String[]{"TABLE"});
+        ResultSet tables = metaData.getTables("dtu", null, null, new String[]{"TABLE"});
         while (tables.next()){
+            if(tables.getString("REMARKS")==null||tables.getString("REMARKS").length()==0){
+                continue;
+            }
             System.out.println(tables.getString("TABLE_NAME"));
             System.out.println(tables.getString("REMARKS"));
         }
@@ -102,7 +105,7 @@ public class DatabaseMetaDatetest {
     @Test
     public void test05() throws SQLException {
         DatabaseMetaData metaData = connection.getMetaData();
-        ResultSet columns = metaData.getColumns("mall", null, "city", null);
+        ResultSet columns = metaData.getColumns("dtu", null, "city", null);
         while (columns.next()){
             //TABLE_NAME String =>表名
             System.out.println(columns.getString("TABLE_NAME"));

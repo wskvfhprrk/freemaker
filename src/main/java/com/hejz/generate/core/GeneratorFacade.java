@@ -5,7 +5,7 @@ import com.hejz.generate.entity.Settings;
 import com.hejz.generate.entity.Table;
 import com.hejz.generate.utils.DataBaseUtils;
 import com.hejz.generate.utils.PropertiesUtils;
-import com.hejz.generate.utils.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.List;
@@ -53,17 +53,21 @@ public class GeneratorFacade {
      * 2.调用核心处理类完成代码生成工作
      */
     public void generatorByDataBase() throws Exception {
-            List<Table> tables = DataBaseUtils.getDbInfo(db);
-                //对每一个table进行表生成
-                for(Table table:tables) {
-                    //数据模型
-                    Map<String, Object> dataModel = getDataModel(table);
-                    //测试
+        List<Table> tables = DataBaseUtils.getDbInfo(db);
+        if (tables.isEmpty()) {
+            System.out.println("数据库中没有进出数据表");
+            return;
+        }
+        //对每一个table进行表生成
+        for (Table table : tables) {
+            //数据模型
+            Map<String, Object> dataModel = getDataModel(table);
+            //测试
 //                    dataModel.forEach((k,v)-> System.out.println(k+"--->"+v));
 //                    System.out.println("______________________________________");
-                    //调用代码生成方法，把数据模型传过去，进行生成
-                    generator.scanAndGenerator(dataModel);
-                }
+            //调用代码生成方法，把数据模型传过去，进行生成
+            generator.scanAndGenerator(dataModel);
+        }
         }
         /**
          * 根据table对象获取数据模型

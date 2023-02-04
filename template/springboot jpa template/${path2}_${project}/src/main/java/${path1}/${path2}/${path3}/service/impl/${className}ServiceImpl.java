@@ -6,13 +6,13 @@
 </#list>
 package ${pPackage}.service.impl;
 
+import ${pPackage}.dto.${className}FindByPageDto;
 import ${pPackage}.entity.${className};
 import ${pPackage}.repository.${className}Repository;
 import ${pPackage}.service.${className}Service;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -42,32 +42,37 @@ public class ${className}ServiceImpl implements ${className}Service {
     }
 
     @Override
-    public Page<${className}> findPage(${className} ${className?uncap_first}, int pageNo,int pageSize) {
+    public Page<${className}> findPage(${className}FindByPageDto dto) {
         Specification<${className}> sp= (root, query, cb)-> {
             List<Predicate> predicates = new ArrayList<>();
             <#list table.columns as column>
+<#if column.isKey==false>
             <#if column.columnJavaType=='String'>
-            if(StringUtils.isNotBlank(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
-                predicates.add(cb.like(root.get("${column.javaBeanName}"), "%"+${className?uncap_first}.get${column.javaBeanName?cap_first}()+"%"));
+            if(StringUtils.isNotBlank(dto.get${column.javaBeanName?cap_first}())) {
+                predicates.add(cb.like(root.get("${column.javaBeanName}"), "%"+dto.get${column.javaBeanName?cap_first}()+"%"));
             }
             <#elseif (column.columnJavaType=='Long'||column.columnJavaType=='Integer')>
-            if(${className?uncap_first}.get${column.javaBeanName?cap_first}()!=null && ${className?uncap_first}.get${column.javaBeanName?cap_first}()!=0) {
-            predicates.add(cb.equal(root.get("${column.javaBeanName}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
+            if(dto.get${column.javaBeanName?cap_first}()!=null && dto.get${column.javaBeanName?cap_first}()!=0) {
+            predicates.add(cb.equal(root.get("${column.javaBeanName}"), dto.get${column.javaBeanName?cap_first}()));
             }
             <#elseif (column.columnJavaType=='java.util.Date')>
-            if(${className?uncap_first}.get${column.javaBeanName?cap_first}()!=null) {
-            predicates.add(cb.equal(root.get("${column.javaBeanName}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
+            if(dto.get${column.javaBeanName?cap_first}()!=null) {
+            predicates.add(cb.equal(root.get("${column.javaBeanName}"), dto.get${column.javaBeanName?cap_first}()));
             }
             <#else>
-            if(StringUtils.isNotEmpty(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
-                predicates.add(cb.equal(root.get("${column.javaBeanName}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
+            if(StringUtils.isNotEmpty(dto.get${column.javaBeanName?cap_first}())) {
+                predicates.add(cb.equal(root.get("${column.javaBeanName}"), dto.get${column.javaBeanName?cap_first}()));
             }
             </#if>
+</#if>
             </#list>
             Predicate[] andPredicate = new Predicate[predicates.size()];
             return cb.and(predicates.toArray(andPredicate));
         };
-        Page<${className}> all = ${className?uncap_first}Repository.findAll(sp, PageRequest.of(pageNo,pageSize));
+        //截取第一个字符，为-是倒序，为+正排序,后面为字段名称
+        Sort.Direction direction = dto.getSort().substring(0, 1).equals("+") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort sort = Sort.by(direction, dto.getSort().substring(1));
+        Page<${className}> all = ${className?uncap_first}Repository.findAll(sp, PageRequest.of(dto.getPage(), dto.getLimit(), sort));
         System.out.println(all);
         return all;
     }
@@ -77,6 +82,7 @@ public class ${className}ServiceImpl implements ${className}Service {
         Specification<${className}> spec= (root, query, cb)-> {
             List<Predicate> predicates = new ArrayList<>();
             <#list table.columns as column>
+            <#if column.isKey==false>
             <#if column.columnJavaType=='String'>
             if(StringUtils.isNotBlank(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
             predicates.add(cb.like(root.get("${column.javaBeanName}"), "%"+${className?uncap_first}.get${column.javaBeanName?cap_first}()+"%"));
@@ -93,6 +99,7 @@ public class ${className}ServiceImpl implements ${className}Service {
             if(StringUtils.isNotEmpty(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
             predicates.add(cb.equal(root.get("${column.javaBeanName}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
             }
+            </#if>
             </#if>
             </#list>
             Predicate[] andPredicate = new Predicate[predicates.size()];

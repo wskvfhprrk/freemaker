@@ -70,6 +70,7 @@ public class DataBaseUtils {
             ResultSet primaryKeys = metaData.getPrimaryKeys(null, null, table_name);
             //备注说明
             String remarks = tables.getString("REMARKS");
+            if(remarks==null||remarks.length()==0)continue;
             //对主键遍历的原因（或许一张表有多个主键）
             String keys = "";
             while (primaryKeys.next()) {

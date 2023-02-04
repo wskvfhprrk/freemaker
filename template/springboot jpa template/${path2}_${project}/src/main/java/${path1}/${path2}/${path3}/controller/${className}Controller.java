@@ -65,17 +65,17 @@ public class ${className}Controller {
     public Result<PageResult<${className}FindByPageVo>> findBypage( @Valid ${className}FindByPageDto dto){
         ${className} ${className?uncap_first}=new ${className}();
         BeanUtils.copyProperties(dto,${className?uncap_first});
-        Page<${className}> ${className?uncap_first}Page = ${className?uncap_first}Service.findPage(${className?uncap_first}, dto.getPageNo(), dto.getPageSize());
+        Page<${className}> ${className?uncap_first}Page = ${className?uncap_first}Service.findPage(dto);
         List<${className}FindByPageVo> list = ${className?uncap_first}Page.getContent().stream().map(d -> {
             ${className}FindByPageVo vo = new ${className}FindByPageVo();
             BeanUtils.copyProperties(d,vo);
             return vo;
         }).collect(Collectors.toList());
         PageResult<${className}FindByPageVo> pages=new PageResult<>();
-        pages.setPageNo(dto.getPageNo());
-        pages.setPageSize(dto.getPageSize());
+        pages.setPage(dto.getPage());
+        pages.setLimit(dto.getLimit());
         pages.setTotalPage(${className?uncap_first}Page.getTotalPages());
-        pages.setTotalElements(${className?uncap_first}Page.getTotalElements());
+        pages.setTotal(${className?uncap_first}Page.getTotalElements());
         pages.setContent(list);
         return Result.ok(pages);
     }
