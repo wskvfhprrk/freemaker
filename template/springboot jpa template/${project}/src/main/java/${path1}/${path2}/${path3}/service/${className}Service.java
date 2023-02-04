@@ -20,5 +20,4 @@ public interface ${className}Service {
     void delete(${type} ${id});
     ${className} findById(${type} ${id});
     Page<${className}> findPage(${className}FindByPageDto dto);
-    List<${className}> findAll(${className} ${className?uncap_first});
 }

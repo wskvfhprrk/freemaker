@@ -76,21 +76,8 @@ public class ${className}Controller {
         pages.setLimit(dto.getLimit());
         pages.setTotalPage(${className?uncap_first}Page.getTotalPages());
         pages.setTotal(${className?uncap_first}Page.getTotalElements());
-        pages.setContent(list);
+        pages.setItems(list);
         return Result.ok(pages);
     }
 
-    @GetMapping
-    @ApiOperation("分布条件查询${table.tableComment}所有的数据")
-    public Result<List<${className}AllVo>> findAll(@Valid ${className}FindAllDto dto){
-        ${className} ${className?uncap_first}=new ${className}();
-        BeanUtils.copyProperties(dto,${className?uncap_first});
-        List<${className}> dictionaries = ${className?uncap_first}Service.findAll(${className?uncap_first});
-        List<${className}AllVo> list = dictionaries.stream().map(d -> {
-            ${className}AllVo vo = new ${className}AllVo();
-            BeanUtils.copyProperties(d,vo);
-            return vo;
-        }).collect(Collectors.toList());
-        return Result.ok(list);
-    }
 }

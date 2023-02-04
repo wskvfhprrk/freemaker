@@ -85,6 +85,10 @@ public class GeneratorFacade {
 //            dataModel.putAll(StringUtils.conver2Map(settings));
             //类名
             dataModel.put("className",table.getClassName());
+            //首字线小写
+            char chars[] = table.getClassName().toCharArray();
+            chars[0] = Character.toLowerCase(chars[0]);
+            dataModel.put("lowClassName",new String(chars));
             return dataModel;
         }
     //

@@ -10,7 +10,7 @@ public class PageResult<T> {
     private Integer limit;
     private Integer totalPage;
     private Long total;
-    private List<T> content;
+    private List<T> items;
     public void setPage(Integer page) {
         this.page = page+1;
     }
