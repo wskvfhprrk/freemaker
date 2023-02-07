@@ -46,6 +46,7 @@ public class ${className} implements Serializable{
     /**
      * 外键表——${pk.pkTableName}中的字段${pk.pkColumnName}
      */
+    // TODO:  手动去掉上面@ManyToOne重复的字段——${pk.fkColumnName}
     @ManyToOne
     @JoinColumn(name = "${pk.fkColumnName}",insertable = false,updatable = false)
     private ${pk.javaBeanName?cap_first} ${pk.javaBeanName};
