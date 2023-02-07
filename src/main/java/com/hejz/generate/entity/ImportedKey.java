@@ -14,7 +14,7 @@ public class ImportedKey {
     /**
      * 导入的主键表java名称
      */
-    private String javaBeanName;
+    private String pkJavaBeanName;
     /**
      * 导入的外键表
      */

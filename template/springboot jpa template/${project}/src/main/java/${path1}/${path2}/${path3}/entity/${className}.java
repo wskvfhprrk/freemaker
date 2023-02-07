@@ -15,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @org.hibernate.annotations.Table(appliesTo = "${table.name}", comment = "${table.tableComment}")
 public class ${className} implements Serializable{
-    <#list table.columns as column>
+<#list table.columns as column>
 
     <#if column.isKey==true>
     @Id
@@ -28,28 +28,26 @@ public class ${className} implements Serializable{
             strategy = GenerationType.SEQUENCE,
             generator = "${table.name}_sequence"
     )
-    <#if column.isAutoincrement==true>
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
-    </#if>
-    </#if>
-    <#if column.isAutoincrement==true>
-    </#if>
     @Column(
             name = "${column.columnName}",
             nullable = <#if column.isNullable==0>false<#else>true</#if>,
             columnDefinition=<#if column.columnJavaType=='String'>"varchar(${column.columnDisplaySize})"<#elseif column.columnJavaType=='Integer'>"int"<#elseif column.columnJavaType=='Long'>"bigint"<#elseif column.columnJavaType=='Boolean'>"bit"<#else>"date"</#if>+" COMMENT '${column.columnComment}'"
     )
     private ${column.columnJavaType} ${column.javaBeanName};
-    </#list>
-    <#if table.importedKeys??>
-    <#list table.importedKeys as pk>
+    <#elseif column.isImportedKey==false>
+    @Column(
+            name = "${column.columnName}",
+            nullable = <#if column.isNullable==0>false<#else>true</#if>,
+            columnDefinition=<#if column.columnJavaType=='String'>"varchar(${column.columnDisplaySize})"<#elseif column.columnJavaType=='Integer'>"int"<#elseif column.columnJavaType=='Long'>"bigint"<#elseif column.columnJavaType=='Boolean'>"bit"<#else>"date"</#if>+" COMMENT '${column.columnComment}'"
+    )
+    private ${column.columnJavaType} ${column.javaBeanName};
+    <#else>
     /**
-     * 外键表——${pk.pkTableName}中的字段${pk.pkColumnName}
+     * 外键表——${column.pkTableName}中的字段${column.pkColumnName}
      */
-    // TODO:  手动去掉上面@ManyToOne重复的字段——${pk.fkColumnName}
     @ManyToOne
-    @JoinColumn(name = "${pk.fkColumnName}",insertable = false,updatable = false)
-    private ${pk.javaBeanName?cap_first} ${pk.javaBeanName};
-    </#list>
+    @JoinColumn(name = "${column.fkColumnName}",insertable = false,updatable = false)
+    private ${column.javaBeanName?cap_first} ${column.javaBeanName};
     </#if>
+</#list>
 }

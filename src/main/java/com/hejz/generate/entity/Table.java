@@ -30,7 +30,7 @@ public class Table {
      */
     private List<Column> columns;
     /**
-     * 表外键——可能为空集体
+     * 表外键——可能为空集体——写进了Colum中了，现在没有意义了
      */
     private List<ImportedKey> importedKeys;
 }

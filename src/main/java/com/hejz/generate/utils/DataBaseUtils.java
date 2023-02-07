@@ -92,7 +92,7 @@ public class DataBaseUtils {
                 String pktableName = importedKeys.getString("PKTABLE_NAME");
                 importedKey.setPkTableName(pktableName);
                 //去掉前缀名
-                importedKey.setJavaBeanName(removePrefix(pktableName));
+                importedKey.setPkJavaBeanName(removePrefix(pktableName));
                 importedKey.setPkColumnName(importedKeys.getString("PKCOLUMN_NAME"));
                 listPk.add(importedKey);
             }
@@ -144,11 +144,23 @@ public class DataBaseUtils {
                 column.setColumnJavaType(javaType);
                 column.setIsNullable(resultSetMetaData.isNullable(i));
                 column.setColumnDisplaySize(resultSetMetaData.getColumnDisplaySize(i));
+                //判断是不是外键字段
+                if(!listPk.isEmpty()){
+                    listPk.stream().forEach(pk->{
+                        if(pk.getFkColumnName().equals(column.getColumnName())){
+                            column.setIsImportedKey(true);
+                            column.setFkColumnName(pk.getFkColumnName());
+                            column.setPkJavaBeanName(pk.getPkJavaBeanName());
+                            column.setPkTableName(pk.getPkTableName());
+                            column.setPkColumnName(pk.getPkColumnName());
+                        }
+                    });
+                }
                 cols.add(column);
             }
             //先把列加入表中
             tab.setColumns(cols);
-            //把外键信息加入表中
+//            //把外键信息加入表中
             tab.setImportedKeys(listPk);
             list.add(tab);
             //关闭连接，释放资源

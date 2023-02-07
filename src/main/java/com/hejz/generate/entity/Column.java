@@ -8,7 +8,7 @@ import java.util.List;
  * 表中列参数类
  */
 @Data
-public class Column {
+public class Column extends ImportedKey{
     /**
      * 列名称
      */
@@ -50,5 +50,9 @@ public class Column {
      * 是否唯一索引导
      */
    // private Boolean isUnique;
+    /**
+     * 是否是外键，如果是，外键属性不能为空
+     */
+    private Boolean isImportedKey =false;
 
 }
