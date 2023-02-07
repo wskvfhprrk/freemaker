@@ -26,7 +26,7 @@
         <template slot-scope="{row}"> <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span> </template>
       </el-table-column> -->
       <#else>
-      <el-table-column label="${column.columnComment}" prop="${column.javaBeanName}" width="200px" align="center" />
+      <el-table-column label="${column.columnComment}" prop="${column.javaBeanName}" width="100px" align="center" />
     </#if></#list>
       <el-table-column>
         <template slot-scope="{row}">
@@ -140,13 +140,6 @@ export default {
         return '不带'
       }
     },
-    automaticFormatter(row, column) {
-      if (row.automaticAdjustment) {
-        return '自动'
-      } else {
-        return '手动'
-      }
-    },
     // 获取列表数据
     getList() {
       this.listLoading = true
@@ -160,19 +153,6 @@ export default {
       this.getList()
     },
     // 操作状态
-    automaticAdjustmentStatus(row, status) {
-      automaticAdjustment(row.id).then(() => {
-        this.dialogFormVisible = false
-        this.$notify({
-              title: 'Success',
-              message: '操作状态修改成功！',
-              type: 'success',
-              duration: 2000
-            },
-            this.getList()
-        )
-      })
-    },
     // 排序改变
     sortChange(data) {
       const { prop, order } = data

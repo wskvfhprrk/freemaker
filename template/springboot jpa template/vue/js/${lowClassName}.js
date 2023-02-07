@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function fetchList(query) {
   return request({
-    url: '/${className?uncap_first}/fingPage',
+    url: '/${className?uncap_first}/findPage',
     method: 'get',
     params: query
   })

@@ -60,7 +60,7 @@ public class ${className}Controller {
         return Result.ok();
     }
 
-    @GetMapping("fingPage")
+    @GetMapping("findPage")
     @ApiOperation("条件查询${table.tableComment}")
     public Result<PageResult<${className}FindByPageVo>> findBypage( @Valid ${className}FindByPageDto dto){
         ${className} ${className?uncap_first}=new ${className}();
