@@ -41,7 +41,7 @@ public class ${className}Controller {
     public Result create${className}(@Valid @RequestBody ${className}CreateDto dto){
         ${className} ${className?uncap_first}=new ${className}();
         BeanUtils.copyProperties(dto,${className?uncap_first});
-        ${className?uncap_first} = ${className?uncap_first}Service.Save(${className?uncap_first});
+        ${className?uncap_first} = ${className?uncap_first}Service.save(${className?uncap_first});
         return Result.ok(${className?uncap_first});
 
     }
@@ -50,7 +50,7 @@ public class ${className}Controller {
     public Result update${className}(@Valid @RequestBody ${className}UpdateDto dto){
         ${className} ${className?uncap_first}=new ${className}();
         BeanUtils.copyProperties(dto,${className?uncap_first});
-        ${className?uncap_first} = ${className?uncap_first}Service.Save(${className?uncap_first});
+        ${className?uncap_first} = ${className?uncap_first}Service.update(${className?uncap_first});
         return Result.ok(${className?uncap_first});
     }
     @DeleteMapping
