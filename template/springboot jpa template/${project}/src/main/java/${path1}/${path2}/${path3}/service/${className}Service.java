@@ -16,7 +16,8 @@ import java.util.List;
  *
  */
 public interface ${className}Service {
-    ${className} Save(${className} ${className?uncap_first});
+    ${className} save(${className} ${className?uncap_first});
+    ${className} update(${className} ${className?uncap_first});
     void delete(${type} ${id});
     ${className} findById(${type} ${id});
     Page<${className}> findPage(${className}FindByPageDto dto);

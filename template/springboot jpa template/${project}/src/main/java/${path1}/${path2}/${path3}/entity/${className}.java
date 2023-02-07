@@ -1,6 +1,6 @@
 package ${pPackage}.entity;
 
-import lombok.Data;
+import lombok.*;
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -11,6 +11,8 @@ import javax.persistence.*;
  */
 @Data
 @Entity(name = "${table.name}")
+@NoArgsConstructor
+@AllArgsConstructor
 @org.hibernate.annotations.Table(appliesTo = "${table.name}", comment = "${table.tableComment}")
 public class ${className} implements Serializable{
     <#list table.columns as column>
@@ -35,7 +37,7 @@ public class ${className} implements Serializable{
     @Column(
             name = "${column.columnName}",
             nullable = <#if column.isNullable==0>false<#else>true</#if>,
-            columnDefinition=<#if column.columnJavaType=='String'>"varchar(${column.columnDisplaySize})"<#elseif column.columnJavaType=='Integer'>"int"<#elseif column.columnJavaType=='Long'>"bigint"<#else>"date"</#if>+" COMMENT '${column.columnComment}'"
+            columnDefinition=<#if column.columnJavaType=='String'>"varchar(${column.columnDisplaySize})"<#elseif column.columnJavaType=='Integer'>"int"<#elseif column.columnJavaType=='Long'>"bigint"<#elseif column.columnJavaType=='bit'>"bit"<#else>"date"</#if>+" COMMENT '${column.columnComment}'"
     )
     private ${column.columnJavaType} ${column.javaBeanName};
     </#list>

@@ -27,7 +27,12 @@ public class ${className}ServiceImpl implements ${className}Service {
     private ${className}Repository ${className?uncap_first}Repository;
 
     @Override
-    public ${className} Save(${className} ${className?uncap_first}) {
+    public ${className} save(${className} ${className?uncap_first}) {
+        return ${className?uncap_first}Repository.save(${className?uncap_first});
+    }
+
+    @Override
+    public ${className} update(${className} ${className?uncap_first}) {
         return ${className?uncap_first}Repository.save(${className?uncap_first});
     }
 
