@@ -96,7 +96,6 @@ public class DataBaseUtils {
                 importedKey.setPkColumnName(importedKeys.getString("PKCOLUMN_NAME"));
                 listPk.add(importedKey);
             }
-            tab.setImportedKeys(listPk);
             //处理表中的所有字段——与视频不同，视频从元数据拿东西，此处从元数据拿备注信息，其它从结果集中取得
             //查询参数个数
             //元数据不精确，但能查出注释放进map
@@ -160,8 +159,6 @@ public class DataBaseUtils {
             }
             //先把列加入表中
             tab.setColumns(cols);
-//            //把外键信息加入表中
-            tab.setImportedKeys(listPk);
             list.add(tab);
             //关闭连接，释放资源
             columns.close();

@@ -82,9 +82,9 @@ public class DatabaseMetaDatetest {
         DatabaseMetaData metaData = connection.getMetaData();
         ResultSet tables = metaData.getTables("dtu", null, null, new String[]{"TABLE"});
         while (tables.next()){
-            if(tables.getString("REMARKS")==null||tables.getString("REMARKS").length()==0){
-                continue;
-            }
+//            if(tables.getString("REMARKS")==null||tables.getString("REMARKS").length()==0){
+//                continue;
+//            }
             System.out.println(tables.getString("TABLE_NAME"));
             System.out.println(tables.getString("REMARKS"));
         }
@@ -105,7 +105,7 @@ public class DatabaseMetaDatetest {
     @Test
     public void test05() throws SQLException {
         DatabaseMetaData metaData = connection.getMetaData();
-        ResultSet columns = metaData.getColumns("dtu", null, "city", null);
+        ResultSet columns = metaData.getColumns("dtu", null, "instruction_definition_sequence", null);
         while (columns.next()){
             //TABLE_NAME String =>表名
             System.out.println(columns.getString("TABLE_NAME"));
@@ -139,7 +139,7 @@ public class DatabaseMetaDatetest {
     public void test06() throws SQLException {
         DatabaseMetaData metaData = connection.getMetaData();
         ResultSet resultSet = metaData.getCatalogs();
-        ResultSet rs = metaData.getImportedKeys("mall", null, "goods");
+        ResultSet rs = metaData.getImportedKeys("dtu", null, "instruction_definition_command");
         while (rs.next()){
             System.out.println("导入的主键表名—"+rs.getString("FKCOLUMN_NAME"));
             System.out.println("导入的主键表名—"+rs.getString("PKTABLE_NAME"));
