@@ -116,8 +116,8 @@ export default {
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
-        update: 'Edit',
-        create: 'Create'
+        update: '修改',
+        create: '新增'
       },
       rules: {
         <#list table.columns as column>
