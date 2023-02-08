@@ -47,7 +47,11 @@ public class ${className} implements Serializable{
      */
     @ManyToOne
     @JoinColumn(name = "${column.fkColumnName}",insertable = false,updatable = false)
-    private ${column.javaBeanName?cap_first} ${column.javaBeanName};
+    private ${column.pkJavaBeanName?cap_first} ${column.javaBeanName};
     </#if>
 </#list>
+public ${className}(<#list table.columns as column><#if column.isKey==false> <#if column.isImportedKey==false>${column.columnJavaType} ${column.javaBeanName}<#else>${column.pkJavaBeanName?cap_first} ${column.javaBeanName}</#if></#if><#if column_has_next && column_index != 0>,<#else></#if></#list>){
+    <#list table.columns as column><#if column.isKey==false> <#if column.isImportedKey==false>this.${column.javaBeanName}=${column.javaBeanName}<#else>this.${column.javaBeanName}=${column.javaBeanName}</#if></#if><#if column_has_next && column_index != 0>;<#else></#if></#list>
+    }
+
 }
