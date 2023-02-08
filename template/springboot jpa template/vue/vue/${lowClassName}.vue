@@ -48,11 +48,11 @@
           <el-input v-model="temp.${column.javaBeanName}" disabled placeholder="请输入${column.columnComment}" />
         </el-form-item>
         <#elseif column.columnJavaType?index_of("Integer")!=-1>
-        <el-form-item label="${column.columnComment}" prop="${column.javaBeanName}">
+          <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
           <el-input v-model="temp.${column.javaBeanName}" type="number" placeholder="请输入${column.columnComment}" />
         </el-form-item>
         <#else>
-        <el-form-item label="${column.columnComment}" prop="${column.javaBeanName}">
+        <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
           <el-input v-model="temp.${column.javaBeanName}"  placeholder="请输入${column.columnComment}" />
         </el-form-item>
       </#if></#list>
@@ -121,7 +121,7 @@ export default {
       },
       rules: {
         <#list table.columns as column>
-        <#if column.isKey==false>
+        <#if column.isKey==false && column.isNullable==0>
         ${column.javaBeanName}: [{ required: true, message: '${column.columnComment}是必填', trigger: 'blur' }],
       </#if></#list>
       },
