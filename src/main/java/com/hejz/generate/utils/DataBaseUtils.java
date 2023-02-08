@@ -59,6 +59,8 @@ public class DataBaseUtils {
         //获取元数据
         DatabaseMetaData metaData = connection.getMetaData();
         List<Table> list = new ArrayList<>();
+        //所有外键表
+        List<Table> foreignKeyTables = new ArrayList<>();
         //获取当前数据库的所有表
         ResultSet tables = metaData.getTables(database.getDb(), null, null, new String[]{"TABLE"});
         while (tables.next()) {
@@ -70,7 +72,6 @@ public class DataBaseUtils {
             ResultSet primaryKeys = metaData.getPrimaryKeys(null, null, table_name);
             //备注说明
             String remarks = tables.getString("REMARKS");
-            if(remarks==null||remarks.length()==0)continue;
             //对主键遍历的原因（或许一张表有多个主键）
             String keys = "";
             while (primaryKeys.next()) {
@@ -159,7 +160,17 @@ public class DataBaseUtils {
             }
             //先把列加入表中
             tab.setColumns(cols);
-            list.add(tab);
+            //区分外键表和主表
+            if (tab.getTableComment() == null || tab.getTableComment().length() == 0) {
+                if (tab.getColumns().size() > 1) {
+                    foreignKeyTables.add(tab);
+                } else {
+                    //自增序列表不管
+                }
+            } else {
+                list.add(tab);
+            }
+            // TODO: 2023/2/8 已经区分了中间表，如果实体类映射还差一步——主表中增加一列字段为中间表@ManyToMany映射关系（分主次） 
             //关闭连接，释放资源
             columns.close();
             primaryKeys.close();

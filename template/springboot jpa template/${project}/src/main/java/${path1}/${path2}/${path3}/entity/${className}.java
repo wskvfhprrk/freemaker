@@ -50,7 +50,9 @@ public class ${className} implements Serializable{
     private ${column.pkJavaBeanName?cap_first} ${column.javaBeanName};
     </#if>
 </#list>
-public ${className}(<#list table.columns as column><#if column.isKey==false> <#if column.isImportedKey==false>${column.columnJavaType} ${column.javaBeanName}<#else>${column.pkJavaBeanName?cap_first} ${column.javaBeanName}</#if></#if><#if column_has_next && column_index != 0>,<#else></#if></#list>){
+
+    //没有主键的构造器
+    public ${className}(<#list table.columns as column><#if column.isKey==false> <#if column.isImportedKey==false>${column.columnJavaType} ${column.javaBeanName}<#else>${column.pkJavaBeanName?cap_first} ${column.javaBeanName}</#if></#if><#if column_has_next && column_index != 0>,<#else></#if></#list>){
     <#list table.columns as column><#if column.isKey==false> <#if column.isImportedKey==false>this.${column.javaBeanName}=${column.javaBeanName}<#else>this.${column.javaBeanName}=${column.javaBeanName}</#if></#if><#if column_has_next && column_index != 0>;<#else></#if></#list>
     }
 
