@@ -86,4 +86,26 @@ public class ${className}ServiceImpl implements ${className}Service {
         return all;
     }
 
+    @Override
+    public List<${className}> findAll(${className} ${className?uncap_first}) {
+            Specification<${className}> spec= (root, query, cb)-> {
+            List<Predicate> predicates = new ArrayList<>();
+    <#list table.columns as column>
+    <#if column.columnJavaType=='String'>
+            if(StringUtils.isNotBlank(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
+                predicates.add(cb.like(root.get("${column.javaBeanName?cap_first}"), "%"+${className?uncap_first}.get${column.javaBeanName?cap_first}()+"%"));
+            }
+    <#else>
+            if(StringUtils.isNotEmpty(${className?uncap_first}.get${column.javaBeanName?cap_first}())) {
+                predicates.add(cb.equal(root.get("${column.javaBeanName?cap_first}"), ${className?uncap_first}.get${column.javaBeanName?cap_first}()));
+            }
+    </#if>
+    </#list>
+            Predicate[] andPredicate = new Predicate[predicates.size()];
+            return cb.and(predicates.toArray(andPredicate));
+            };
+            List<${className}> all = ${className?uncap_first}Repository.findAll(spec);
+            return all;
+    }
+
 }
