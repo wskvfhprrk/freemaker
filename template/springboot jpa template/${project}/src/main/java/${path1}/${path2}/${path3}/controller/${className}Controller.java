@@ -41,8 +41,8 @@ public class ${className}Controller {
     public Result create${className}(@Valid @RequestBody ${className}CreateDto dto){
         ${className} ${className?uncap_first}=new ${className}();
         BeanUtils.copyProperties(dto,${className?uncap_first});
-        ${className?uncap_first} = ${className?uncap_first}Service.save(${className?uncap_first});
-        return Result.ok(${className?uncap_first});
+        ${className?uncap_first}Service.save(${className?uncap_first});
+        return Result.ok();
 
     }
     @PutMapping
@@ -50,19 +50,19 @@ public class ${className}Controller {
     public Result update${className}(@Valid @RequestBody ${className}UpdateDto dto){
         ${className} ${className?uncap_first}=new ${className}();
         BeanUtils.copyProperties(dto,${className?uncap_first});
-        ${className?uncap_first} = ${className?uncap_first}Service.update(${className?uncap_first});
-        return Result.ok(${className?uncap_first});
+        ${className?uncap_first}Service.update(${className?uncap_first});
+        return Result.ok();
     }
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ApiOperation("删除${table.tableComment}")
-    public Result Delete${className}(${type} ${id}){
+    public Result Delete${className}(@PathVariable ${type} ${id}){
         ${className?uncap_first}Service.delete(${id});
         return Result.ok();
     }
 
     @GetMapping("findPage")
     @ApiOperation("条件查询${table.tableComment}")
-    public Result<PageResult<${className}FindByPageVo>> findBypage( @Valid ${className}FindByPageDto dto){
+    public Result<PageResult<${className}FindByPageVo>> findBypage(${className}FindByPageDto dto){
         ${className} ${className?uncap_first}=new ${className}();
         BeanUtils.copyProperties(dto,${className?uncap_first});
         Page<${className}> ${className?uncap_first}Page = ${className?uncap_first}Service.findPage(dto);
