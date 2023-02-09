@@ -82,10 +82,8 @@ public class ${className}Controller {
 
     @GetMapping
     @ApiOperation("分布条件查询${table.tableComment}所有的数据")
-    public Result<List<${className}AllVo>> findAll(@Valid ${className}AllDto dto){
-        ${className} ${className?uncap_first}=new ${className}();
-        BeanUtils.copyProperties(dto,${className?uncap_first});
-        List<${className}> dictionaries = ${className?uncap_first}Service.findAll(${className?uncap_first});
+    public Result<List<${className}AllVo>> findAll(${className}AllDto dto){
+        List<${className}> dictionaries = ${className?uncap_first}Service.findAll(dto);
         List<${className}AllVo> list = dictionaries.stream().map(d -> {
             ${className}AllVo vo = new ${className}AllVo();
             BeanUtils.copyProperties(d,vo);

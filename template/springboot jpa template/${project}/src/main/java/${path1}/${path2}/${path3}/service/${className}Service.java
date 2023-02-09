@@ -6,7 +6,7 @@
 </#list>
 package ${pPackage}.service;
 
-import ${pPackage}.dto.${className}FindByPageDto;
+import ${pPackage}.dto.*;
 import ${pPackage}.entity.${className};
 import org.springframework.data.domain.Page;
 
@@ -27,5 +27,5 @@ public interface ${className}Service {
 
     Page<${className}> findPage(${className}FindByPageDto dto);
 
-    List<${className}> findAll(${className} ${className?uncap_first});
+    List<${className}> findAll(${className}AllDto dto);
 }
