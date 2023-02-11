@@ -46,7 +46,7 @@ public class ${className} implements Serializable{
      * 外键表——${column.pkTableName}中的字段${column.pkColumnName}
      */
     @ManyToOne
-    @JoinColumn(name = "${column.fkColumnName}",insertable = false,updatable = false)
+    @JoinColumn(name = "${column.fkColumnName}")
     private ${column.pkJavaBeanName?cap_first} ${column.javaBeanName};
     </#if>
 </#list>
