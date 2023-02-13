@@ -7,8 +7,10 @@ import javax.persistence.*;
 /**
  * ${table.tableComment}实体类
  * author: ${author}
+ * 以下是三种解决循环依赖导致栈溢出的情况：
  * 1、不使用@Data，原因不要toString（）方法，在jpa中表依赖，易出现循环依赖导致栈溢出情况，这是解决之一，
  * 2、另一种方法在表依速中加入注解@JsonIgnoreProperties(value = {"${className?uncap_first}"})或@JsonIgnoreProperties(value = {"${className?uncap_first}s"})
+ * 3、不要使用自查询——解决办法增加一个主键字段不用关键即可——一般情况这个字段可为空字段，查询时可根据id查询即可
  * data: ${.now?date}
  */
 @Data
