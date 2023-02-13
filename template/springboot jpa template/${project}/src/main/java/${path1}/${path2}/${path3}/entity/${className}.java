@@ -7,7 +7,9 @@ import javax.persistence.*;
 /**
  * ${table.tableComment}实体类
  * author: ${author}
- * 不使用@Data，原因不要toString（）方法，在jpa中表依赖，易出现循环依赖导致栈溢出情况，这是解决之一，另一种方法在表依速中加入注解@JsonIgnoreProperties(value = {"${className?uncap_first}s"})
+ * 1、不使用@Data，原因不要toString（）方法，在jpa中表依赖，易出现循环依赖导致栈溢出情况，这是解决之一，
+ * 2、另一种方法在表依速中加入注解@JsonIgnoreProperties(value = {"${className?uncap_first}"})或@JsonIgnoreProperties(value = {"${className?uncap_first}s"})
+ * 3、如果要去重复数据需要手动重写hashcode()和equels()方法——否则hashSet()会失效
  * data: ${.now?date}
  */
 @Data
