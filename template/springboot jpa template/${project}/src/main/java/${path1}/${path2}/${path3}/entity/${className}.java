@@ -36,14 +36,14 @@ public class ${className} implements Serializable{
     @Column(
             name = "${column.columnName}",
             nullable = <#if column.isNullable==0>false<#else>true</#if>,
-            columnDefinition=<#if column.columnJavaType=='String'>"varchar(${column.columnDisplaySize})"<#elseif column.columnJavaType=='Integer'>"int"<#elseif column.columnJavaType=='Long'>"bigint"<#elseif column.columnJavaType=='Boolean'>"bit"<#else>"date"</#if>+" COMMENT '${column.columnComment}'"
+            columnDefinition=<#if column.columnJavaType=='String'>"varchar(${column.columnDisplaySize})"<#elseif column.columnJavaType=='Integer'>"int"<#elseif column.columnJavaType=='Long'>"bigint"<#elseif column.columnJavaType=='Boolean'>"bit"<#else>"datetime"</#if>+" COMMENT '${column.columnComment}'"
     )
     private ${column.columnJavaType} ${column.javaBeanName};
     <#elseif column.isImportedKey==false>
     @Column(
             name = "${column.columnName}",
             nullable = <#if column.isNullable==0>false<#else>true</#if>,
-            columnDefinition=<#if column.columnJavaType=='String'>"varchar(${column.columnDisplaySize})"<#elseif column.columnJavaType=='Integer'>"int"<#elseif column.columnJavaType=='Long'>"bigint"<#elseif column.columnJavaType=='Boolean'>"bit"<#else>"date"</#if>+" COMMENT '${column.columnComment}'"
+            columnDefinition=<#if column.columnJavaType=='String'>"varchar(${column.columnDisplaySize})"<#elseif column.columnJavaType=='Integer'>"int"<#elseif column.columnJavaType=='Long'>"bigint"<#elseif column.columnJavaType=='Boolean'>"bit"<#else>"datetime"</#if>+" COMMENT '${column.columnComment}'"
     )
     private ${column.columnJavaType} ${column.javaBeanName};
     <#else>
