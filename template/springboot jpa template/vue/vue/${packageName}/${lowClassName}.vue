@@ -1,10 +1,15 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
-      <#list table.columns as column>
-      <#if column.isKey==false>
+<#list table.columns as column>
+    <#if column.isKey==false>
+      <#if column.isImportedKey == false>
       <el-input v-model="listQuery.${column.javaBeanName}" placeholder="${column.columnComment}" style="width: 200px" clearable class="filter-item" @keyup.enter.native="handleFilter" />
-      </#if></#list>
+      <#else>
+      <el-select v-model="listQuery.${column.javaBeanName}" placeholder="${column.columnComment}" clearable style="width: 90px" class="filter-item">
+        <el-option v-for="item in ${column.javaBeanName}Options" :key="item" :label="item" :value="item" />
+      </el-select>
+    </#if></#if></#list>
       <!-- <el-select v-model="listQuery.importance" placeholder="Imp" clearable style="width: 90px" class="filter-item">
         <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
       </el-select>
@@ -42,20 +47,33 @@
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
         <el-form ref="dataForm" :rules="rules" :model="temp" label-position="left" label-width="200px" style="width: 400px; margin-left: 50px" >
-        <#list table.columns as column>
-        <#if column.isKey==true>
-        <el-form-item v-show="dialogStatus === 'update'" label="${column.columnComment}" prop="${column.javaBeanName}">
+<#list table.columns as column>
+  <#if column.isKey==true>
+        <el-form-item v-show="dialogStatus === 'update'" label="${column.columnComment}" >
           <el-input v-model="temp.${column.javaBeanName}" disabled placeholder="请输入${column.columnComment}" />
         </el-form-item>
-        <#elseif column.columnJavaType?index_of("Integer")!=-1>
+  <#elseif column.columnJavaType?index_of("Integer")!=-1 && column.isImportedKey == false>
           <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
           <el-input v-model="temp.${column.javaBeanName}" type="number" placeholder="请输入${column.columnComment}" />
         </el-form-item>
-        <#else>
+  <#elseif column.columnJavaType?index_of("Integer")!=-1 && column.isImportedKey == true>
+        <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
+          <el-select v-model="temp.${column.javaBeanName}" placeholder="请选择${column.columnComment}" clearable style="width: 90px" class="filter-item">
+          <el-option v-for="item in ${column.javaBeanName}Options" :key="item" :label="item" :value="item" />
+          </el-select>
+        </el-form-item>
+  <#elseif column.isImportedKey == true>
+          <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
+          <el-select v-model="temp.${column.javaBeanName}" placeholder="请选择${column.columnComment}" clearable style="width: 90px" class="filter-item">
+          <el-option v-for="item in ${column.javaBeanName}Options" :key="item" :label="item" :value="item" />
+          </el-select>
+          </el-form-item>
+<#else>
         <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
           <el-input v-model="temp.${column.javaBeanName}"  placeholder="请输入${column.columnComment}" />
         </el-form-item>
-      </#if></#list>
+  </#if>
+</#list>
         <!-- <el-form-item label="Date" prop="timestamp">
           <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date" />
         </el-form-item> -->

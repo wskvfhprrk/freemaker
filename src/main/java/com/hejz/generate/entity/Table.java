@@ -14,6 +14,10 @@ public class Table {
      */
     private String name;
     /**
+     * 根据表明前缀定包名
+     */
+    private String packageName;
+    /**
      * 处理后的表名称
      */
     private String className;

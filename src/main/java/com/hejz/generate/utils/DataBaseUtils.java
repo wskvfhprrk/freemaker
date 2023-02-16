@@ -81,6 +81,8 @@ public class DataBaseUtils {
             // TODO: 2022/5/6  查询UNIQUE唯一索引
             Table tab = new Table();
             tab.setName(table_name);
+            String[] s1 = table_name.split("_");
+            tab.setPackageName(s1[0]);
             tab.setClassName(className);
             tab.setTableComment(remarks);
             tab.setKey(keys);

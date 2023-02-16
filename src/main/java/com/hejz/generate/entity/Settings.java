@@ -22,6 +22,10 @@ public class Settings {
      */
     private String pPackage = "com.example.demo";
     /**
+     * 二级包名
+     */
+    private String packageName;
+    /**
      * 项目中文描述信息
      */
     private String projectComment;
