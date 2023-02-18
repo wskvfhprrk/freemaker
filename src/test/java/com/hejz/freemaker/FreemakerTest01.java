@@ -24,7 +24,7 @@ public class FreemakerTest01 {
     @Test
     public void test01() throws IOException, TemplateException {
         //1.创建FreeMarker的配置类——直接new对象的已经取消了
-        Configuration cfg=new Configuration(Configuration.VERSION_2_3_31);
+        Configuration cfg=new Configuration(Configuration.VERSION_2_3_22);
         //2.指定模板加载器:将模板存入缓存中
         // 文件路径加载器
         TemplateLoader ftl=new FileTemplateLoader(new File("src/test/template"));

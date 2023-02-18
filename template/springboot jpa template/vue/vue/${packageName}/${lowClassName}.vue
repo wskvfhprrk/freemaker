@@ -6,30 +6,23 @@
       <#if column.isImportedKey == false>
       <el-input v-model="listQuery.${column.javaBeanName}" placeholder="${column.columnComment}" style="width: 200px" clearable class="filter-item" @keyup.enter.native="handleFilter" />
       <#else>
-      <el-select v-model="listQuery.${column.javaBeanName}" placeholder="${column.columnComment}" clearable style="width: 90px" class="filter-item">
-        <el-option v-for="item in ${column.javaBeanName}Options" :key="item" :label="item" :value="item" />
+      <el-select v-model="listQuery.${column.javaBeanName}" placeholder="${column.columnComment}" clearable style="width: 200px" class="filter-item">
+        <!-- todo 根据需要修改item -->
+        <el-option v-for="item in ${column.javaBeanName}Options" :key="item.id" :label="item.name" :value="item.id" />
       </el-select>
     </#if></#if></#list>
-      <!-- <el-select v-model="listQuery.importance" placeholder="Imp" clearable style="width: 90px" class="filter-item">
-        <el-option v-for="item in importanceOptions" :key="item" :label="item" :value="item" />
-      </el-select>
-      <el-select v-model="listQuery.noImei" placeholder="指令前带imei" clearable class="filter-item" style="width: 130px">
-        <el-option v-for="item in calendarNoImeiOptions" :key="item.key" :label="item.noImei_name" :value="item.key" />
-      </el-select>-->
       <el-select v-model="listQuery.sort" style="width: 140px" class="filter-item" @change="handleFilter">
         <el-option v-for="item in sortOptions" :key="item.key" :label="item.label" :value="item.key" />
       </el-select>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter"> 查询</el-button>
       <el-button class="filter-item" style="margin-left: 10px" type="primary" icon="el-icon-edit" @click="handleCreate"> 新增 </el-button>
-      <!-- <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload" > 导出excel </el-button> -->
     </div>
     <el-table :data="list" border>
       <#list table.columns as column>
       <#if column.isKey==true>
       <el-table-column label="${column.columnComment}" prop="${column.javaBeanName}" align="center" width="80" />
-      <!-- <el-table-column label="Date" width="150px" align="center">
-        <template slot-scope="{row}"> <span>{{ row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span> </template>
-      </el-table-column> -->
+      <#elseif column.isImportedKey == true>
+      <el-table-column label="${column.columnComment}" prop="${column.javaBeanName}" width="100px" align="center" :formatter="${column.javaBeanName}Optionsformatter"/>
       <#else>
       <el-table-column label="${column.columnComment}" prop="${column.javaBeanName}" width="100px" align="center" />
     </#if></#list>
@@ -37,8 +30,6 @@
         <template slot-scope="{row}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)"> 修改</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(row)"> 删除</el-button>
-<!--          <el-button size="mini" type="success" @click="automaticAdjustmentStatus(row)"> 修改自动控制状态</el-button>-->
-          <!-- <el-button v-if="row.status!='draft'" size="mini" @click="automaticAdjustmentStatus(row,'draft')"> Draft </el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -58,28 +49,23 @@
         </el-form-item>
   <#elseif column.columnJavaType?index_of("Integer")!=-1 && column.isImportedKey == true>
         <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
-          <el-select v-model="temp.${column.javaBeanName}" placeholder="请选择${column.columnComment}" clearable style="width: 90px" class="filter-item">
-          <el-option v-for="item in ${column.javaBeanName}Options" :key="item" :label="item" :value="item" />
+          <el-select v-model="temp.${column.javaBeanName}" placeholder="请选择${column.columnComment}" clearable style="width: 200px" class="filter-item">
+          <el-option v-for="item in ${column.javaBeanName}Options" :key="item.id" :label="item" :value="item.id" />
           </el-select>
         </el-form-item>
   <#elseif column.isImportedKey == true>
           <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
-          <el-select v-model="temp.${column.javaBeanName}" placeholder="请选择${column.columnComment}" clearable style="width: 90px" class="filter-item">
-          <el-option v-for="item in ${column.javaBeanName}Options" :key="item" :label="item" :value="item" />
+          <el-select v-model="temp.${column.javaBeanName}" placeholder="请选择${column.columnComment}" clearable style="width: 200px" class="filter-item">
+          <!-- todo 根据需要修改item -->
+          <el-option v-for="item in ${column.javaBeanName}Options" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
           </el-form-item>
-<#else>
+  <#else>
         <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
           <el-input v-model="temp.${column.javaBeanName}"  placeholder="请输入${column.columnComment}" />
         </el-form-item>
   </#if>
 </#list>
-        <!-- <el-form-item label="Date" prop="timestamp">
-          <el-date-picker v-model="temp.timestamp" type="datetime" placeholder="Please pick a date" />
-        </el-form-item> -->
-        <!-- <el-form-item label="Remark">
-          <el-input v-model="temp.remark" :autosize="{ minRows: 2, maxRows: 4}" type="textarea" placeholder="Please input" />
-        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false"> 取消 </el-button>
@@ -90,17 +76,8 @@
 </template>
 
 <script>
-import { create${className}, delete${className}, fetchList, update${className} } from '@/api/${lowClassName}'
+import { create${className}, delete${className}, fetchList, update${className} <#list table.columns as column><#if column.isImportedKey == true>,${column.javaBeanName}Options</#if></#list>} from '@/api/${lowClassName}'
 import Pagination from '@/components/Pagination' // 基于el分页的二级包
-
-// const calendarNoImeiOptions = [
-//   { key: 'true', display_name: '带的' },
-//   { key: 'false', display_name: '不带' }
-// ]
-// const automaticOptions = [
-//   { key: 'true', display_name: '自动' },
-//   { key: 'false', display_name: '手动' }
-// ]
 
 export default {
   name: 'ComplexTable',
@@ -114,10 +91,10 @@ export default {
       listQuery: {
         page: 1,
         limit: 20,
-    <#list table.columns as column>
-    <#if column.isKey==false>
-        ${column.javaBeanName}: undefined,
-  </#if></#list>
+<#list table.columns as column>
+<#if column.isKey==false>
+      ${column.javaBeanName}: undefined,
+</#if></#list>
         sort: '+id'
       },
       importanceOptions: [1, 2, 3],
@@ -128,6 +105,10 @@ export default {
         { label: 'ID 顺序排列', key: '+id' },
         { label: 'ID 倒序排列', key: '-id' }
       ],
+<#list table.columns as column>
+<#if column.isImportedKey == true>
+      ${column.javaBeanName}Options:[],
+</#if></#list>
       showReviewer: false,
       temp: {
       },
@@ -148,6 +129,10 @@ export default {
   },
   created() {
     this.getList()
+    <#list table.columns as column>
+    <#if column.isImportedKey == true>
+    this.get${column.javaBeanName?cap_first}Options()
+    </#if></#list>
   },
   methods: {
     // 格式化表格数据
@@ -166,11 +151,28 @@ export default {
         this.total = response.data.total
       })
     },
-    handleFilter() {
+<#list table.columns as column>
+<#if column.isImportedKey == true>
+    get${column.javaBeanName?cap_first}Options(){
+      ${column.javaBeanName}Options().then((response)=>{
+        this.${column.javaBeanName}Options=response.data
+      })
+    },
+    ${column.javaBeanName}Optionsformatter(row,column){
+      for (let index = 0; index < this.${column.javaBeanName}Options.length; index++) {
+        const element = this.${column.javaBeanName}Options[index];
+        if(row.${column.javaBeanName} === element.id){
+          // todo 根据需要修改
+          return element.name
+        }
+      }
+    },
+    ${column.javaBeanName}Options:[],
+</#if></#list>
+handleFilter() {
       this.listQuery.page = 1
       this.getList()
     },
-    // 操作状态
     // 排序改变
     sortChange(data) {
       const { prop, order } = data

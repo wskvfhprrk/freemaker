@@ -31,3 +31,14 @@ export function delete${className}(id) {
     method: 'delete'
   })
 }
+
+<#list table.columns as column><#if column.isImportedKey == true>
+export function ${column.javaBeanName}Options(data) {
+  return request({
+    // todu 修改此处，不要id
+    url: '/${column.javaBeanName}/findAll',
+    method: 'get',
+    params: data
+  })
+}
+</#if></#list>

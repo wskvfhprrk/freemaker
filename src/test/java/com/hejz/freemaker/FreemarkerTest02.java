@@ -17,7 +17,7 @@ public class FreemarkerTest02 {
     @Test
     public void  test() throws Exception {
         //1、创建对象
-        Configuration cfg=new Configuration(Configuration.VERSION_2_3_31);
+        Configuration cfg=new Configuration(Configuration.VERSION_2_3_22);
         //2、指定加载器
         cfg.setTemplateLoader(new StringTemplateLoader());
         //3、创建字符串模版

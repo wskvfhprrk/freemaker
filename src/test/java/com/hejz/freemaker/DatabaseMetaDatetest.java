@@ -139,7 +139,7 @@ public class DatabaseMetaDatetest {
     public void test06() throws SQLException {
         DatabaseMetaData metaData = connection.getMetaData();
         ResultSet resultSet = metaData.getCatalogs();
-        ResultSet rs = metaData.getImportedKeys("dtu", null, "instruction_definition_command");
+        ResultSet rs = metaData.getImportedKeys("dtu", null, "equ_instruction_definition");
         while (rs.next()){
             System.out.println("导入的主键表名—"+rs.getString("FKCOLUMN_NAME"));
             System.out.println("导入的主键表名—"+rs.getString("PKTABLE_NAME"));
