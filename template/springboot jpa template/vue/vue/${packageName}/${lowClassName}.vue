@@ -43,20 +43,22 @@
         <el-form-item v-show="dialogStatus === 'update'" label="${column.columnComment}" >
           <el-input v-model="temp.${column.javaBeanName}" disabled placeholder="请输入${column.columnComment}" />
         </el-form-item>
-  <#elseif column.columnJavaType?index_of("Integer")!=-1 && column.isImportedKey == false>
-          <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
+  <#elseif column.columnJavaType?index_of("Integer")!=-1 && column.isImportedKey == false><el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
           <el-input v-model="temp.${column.javaBeanName}" type="number" placeholder="请输入${column.columnComment}" />
+        </el-form-item>
   <#elseif column.columnJavaType?index_of("Integer")!=-1 && column.isImportedKey == true>
         <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
           <el-select v-model="temp.${column.javaBeanName}" placeholder="请选择${column.columnComment}" clearable style="width: 200px" class="filter-item">
           <el-option v-for="item in ${column.javaBeanName}Options" :key="item.id" :label="item" :value="item.id" />
           </el-select>
+        </el-form-item>
   <#elseif column.isImportedKey == true>
           <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
-          <el-select v-model="temp.${column.javaBeanName}" placeholder="请选择${column.columnComment}" clearable style="width: 200px" class="filter-item">
-          <!-- todo 根据需要修改item -->
-          <el-option v-for="item in ${column.javaBeanName}Options" :key="item.id" :label="item.name" :value="item.id" />
-          </el-select>
+            <el-select v-model="temp.${column.javaBeanName}" placeholder="请选择${column.columnComment}" clearable style="width: 200px" class="filter-item">
+            <!-- todo 根据需要修改item -->
+            <el-option v-for="item in ${column.javaBeanName}Options" :key="item.id" :label="item.name" :value="item.id" />
+            </el-select>
+          </el-form-item>
   <#else>
         <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
           <el-input v-model="temp.${column.javaBeanName}"  placeholder="请输入${column.columnComment}" />
