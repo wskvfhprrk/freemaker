@@ -43,7 +43,8 @@
         <el-form-item v-show="dialogStatus === 'update'" label="${column.columnComment}" >
           <el-input v-model="temp.${column.javaBeanName}" disabled placeholder="请输入${column.columnComment}" />
         </el-form-item>
-  <#elseif column.columnJavaType?index_of("Integer")!=-1 && column.isImportedKey == false><el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
+  <#elseif column.columnJavaType?index_of("Integer")!=-1 && column.isImportedKey == false>
+          <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
           <el-input v-model="temp.${column.javaBeanName}" type="number" placeholder="请输入${column.columnComment}" />
         </el-form-item>
   <#elseif column.columnJavaType?index_of("Integer")!=-1 && column.isImportedKey == true>
@@ -62,7 +63,7 @@
   <#else>
         <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
           <el-input v-model="temp.${column.javaBeanName}"  placeholder="请输入${column.columnComment}" />
-
+        </el-form-item>
   </#if>
 </#list>
     </el-form-item label="操作">
