@@ -168,7 +168,6 @@ export default {
         }
       }
     },
-    ${column.javaBeanName}Options:[],
 </#if></#list>
 handleFilter() {
       this.listQuery.page = 1
