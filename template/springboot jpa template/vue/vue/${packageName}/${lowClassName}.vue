@@ -22,12 +22,12 @@
       <#if column.isKey==true>
       <el-table-column label="${column.columnComment}" prop="${column.javaBeanName}" align="center" width="80" />
       <#elseif column.isImportedKey == true>
-      <el-table-column label="${column.columnComment}" prop="${column.javaBeanName}" width="100px" align="center" :formatter="${column.javaBeanName}Optionsformatter"/>
+      <el-table-column label="${column.columnComment}" prop="${column.javaBeanName}" align="center" :formatter="${column.javaBeanName}Optionsformatter"/>
       <#else>
-      <el-table-column label="${column.columnComment}" prop="${column.javaBeanName}" width="100px" align="center" />
+      <el-table-column label="${column.columnComment}" prop="${column.javaBeanName}" align="center" />
     </#if></#list>
       <el-table-column>
-        <template slot-scope="{row}">
+        <template slot-scope="{row}" align="center">
           <el-button type="primary" size="mini" @click="handleUpdate(row)"> 修改</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(row)"> 删除</el-button>
         </template>
@@ -46,26 +46,24 @@
   <#elseif column.columnJavaType?index_of("Integer")!=-1 && column.isImportedKey == false>
           <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
           <el-input v-model="temp.${column.javaBeanName}" type="number" placeholder="请输入${column.columnComment}" />
-        </el-form-item>
   <#elseif column.columnJavaType?index_of("Integer")!=-1 && column.isImportedKey == true>
         <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
           <el-select v-model="temp.${column.javaBeanName}" placeholder="请选择${column.columnComment}" clearable style="width: 200px" class="filter-item">
           <el-option v-for="item in ${column.javaBeanName}Options" :key="item.id" :label="item" :value="item.id" />
           </el-select>
-        </el-form-item>
   <#elseif column.isImportedKey == true>
           <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
           <el-select v-model="temp.${column.javaBeanName}" placeholder="请选择${column.columnComment}" clearable style="width: 200px" class="filter-item">
           <!-- todo 根据需要修改item -->
           <el-option v-for="item in ${column.javaBeanName}Options" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
-          </el-form-item>
   <#else>
         <el-form-item label="${column.columnComment}" <#if column.isNullable==0> prop="${column.javaBeanName}"</#if>>
           <el-input v-model="temp.${column.javaBeanName}"  placeholder="请输入${column.columnComment}" />
-        </el-form-item>
+
   </#if>
 </#list>
+    </el-form-item label="操作">
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false"> 取消 </el-button>

@@ -6,7 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 
 @Data
-public class ${className}FindAllDto {
+public class ${className}AllDto {
     <#list table.columns as column>
     @ApiModelProperty(value = "${column.columnComment}")
     private ${column.columnJavaType} ${column.javaBeanName};

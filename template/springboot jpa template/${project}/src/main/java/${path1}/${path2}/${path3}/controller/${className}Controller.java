@@ -80,13 +80,14 @@ public class ${className}Controller {
         return Result.ok(pages);
     }
 
-    @GetMapping
+    @GetMapping("findAll")
     @ApiOperation("分布条件查询${table.tableComment}所有的数据")
     public Result<List<${className}AllVo>> findAll(${className}AllDto dto){
         List<${className}> dictionaries = ${className?uncap_first}Service.findAll(dto);
         List<${className}AllVo> list = dictionaries.stream().map(d -> {
             ${className}AllVo vo = new ${className}AllVo();
             BeanUtils.copyProperties(d,vo);
+
             return vo;
         }).collect(Collectors.toList());
         return Result.ok(list);
