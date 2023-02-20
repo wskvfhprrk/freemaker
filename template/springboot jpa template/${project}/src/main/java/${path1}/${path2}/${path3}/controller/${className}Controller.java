@@ -87,7 +87,6 @@ public class ${className}Controller {
         List<${className}AllVo> list = dictionaries.stream().map(d -> {
             ${className}AllVo vo = new ${className}AllVo();
             BeanUtils.copyProperties(d,vo);
-
             return vo;
         }).collect(Collectors.toList());
         return Result.ok(list);
