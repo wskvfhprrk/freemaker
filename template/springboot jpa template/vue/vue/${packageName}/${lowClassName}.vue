@@ -26,7 +26,7 @@
       <#else>
       <el-table-column label="${column.columnComment}" prop="${column.javaBeanName}" align="center" />
     </#if></#list>
-      <el-table-column>
+      <el-table-column label="操作"  align="center">
         <template slot-scope="{row}" align="center">
           <el-button type="primary" size="mini" @click="handleUpdate(row)"> 修改</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(row)"> 删除</el-button>
