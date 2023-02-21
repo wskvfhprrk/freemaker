@@ -27,7 +27,7 @@
       <el-table-column label="${column.columnComment}" prop="${column.javaBeanName}" align="center" />
     </#if></#list>
       <el-table-column label="操作"  align="center">
-        <template slot-scope="{row}" align="center">
+        <template slot-scope="{row}" >
           <el-button type="primary" size="mini" @click="handleUpdate(row)"> 修改</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(row)"> 删除</el-button>
         </template>
@@ -66,7 +66,6 @@
         </el-form-item>
   </#if>
 </#list>
-    </el-form-item label="操作">
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false"> 取消 </el-button>
