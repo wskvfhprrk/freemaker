@@ -62,7 +62,7 @@ public class ${className}Controller {
 
     @GetMapping("findPage")
     @ApiOperation("条件查询${table.tableComment}")
-    public Result<PageResult<${className}FindByPageVo>> findBypage(${className}FindByPageDto dto){
+    public Result<PageResult<${className}FindByPageVo>> findByPage(${className}FindByPageDto dto){
         ${className} ${className?uncap_first}=new ${className}();
         BeanUtils.copyProperties(dto,${className?uncap_first});
         Page<${className}> ${className?uncap_first}Page = ${className?uncap_first}Service.findPage(dto);
